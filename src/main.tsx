@@ -2,6 +2,9 @@
 
 import {createRoot} from "react-dom/client";
 import "./index.css";
-import MainLayout from "./layouts/MainLayout/MainLayout";
+import {RouterProvider} from "react-router-dom";
+import {router} from "./routes";
 
-createRoot(document.getElementById("root")!).render(<MainLayout />);
+createRoot(document.getElementById("root")!).render(
+	<RouterProvider router={router} />,
+);
