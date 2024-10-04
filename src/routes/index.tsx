@@ -29,8 +29,17 @@ export const router = createBrowserRouter(
 					element={<Categories />}
 				/>
 				<Route
-					path='/products'
+					path='/products/:slug'
 					element={<Products />}
+					loader={({params}) => {
+						if (typeof params.slug !== "string") {
+							throw new Response("Bad Request", {
+								statusText: "Category Not Found",
+								status: 400,
+							});
+						}
+						return true;
+					}}
 				/>
 				<Route
 					path='/about'
