@@ -11,9 +11,7 @@ const getProductsBySlug = createAsyncThunk(
 	async (slug: string, thunkAPI) => {
 		const {rejectWithValue} = thunkAPI;
 		try {
-			const response = await axios.get<TResponse>(
-				`http://localhost:5005/products?category=${slug}`,
-			);
+			const response = await axios.get<TResponse>(`/products?category=${slug}`);
 			return response.data;
 		} catch (error) {
 			if (axios.isAxiosError(error)) {

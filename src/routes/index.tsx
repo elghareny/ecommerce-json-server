@@ -1,6 +1,7 @@
 /** @format */
 import MainLayout from "@layouts/MainLayout/MainLayout";
 import About from "@pages/About";
+import Cart from "@pages/Cart";
 import Categories from "@pages/Categories";
 import Error from "@pages/Error";
 import Home from "@pages/Home";
@@ -44,6 +45,10 @@ export const router = createBrowserRouter(
 				<Route
 					path='/about'
 					element={<About />}
+				/>
+				<Route
+					path='/cart'
+					element={<Cart />}
 				/>
 				<Route
 					path='/login'

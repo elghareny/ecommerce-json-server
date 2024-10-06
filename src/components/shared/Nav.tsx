@@ -4,8 +4,6 @@ import {Link, NavLink} from "react-router-dom";
 
 const Nav = () => {
 	const navLinks = [
-		{name: "Home", path: "/"},
-		{name: "Products", path: "/products"},
 		{name: "Categories", path: "/categories"},
 		{name: "About", path: "/about"},
 	];
@@ -38,7 +36,7 @@ const Nav = () => {
 		);
 	});
 	return (
-		<nav className='flex justify-center bg-[var(--dark-color)] p-5 text-[var(--light-color)]'>
+		<nav className='sticky top-0 flex justify-center bg-[var(--dark-color)] p-5 text-[var(--light-color)]'>
 			<div className='container flex justify-between items-center'>
 				<div className='flex space-x-5'>
 					<Link
@@ -54,7 +52,9 @@ const Nav = () => {
 					</ul>
 				</div>
 				<div className='flex space-x-5'>
-					<HeaderCart />
+					<Link to={"/cart"}>
+						<HeaderCart />
+					</Link>
 					<ul className='flex space-x-3 md:space-x-5 text-lg font-semibold'>
 						{navIconsRender}
 					</ul>

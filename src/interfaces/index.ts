@@ -45,6 +45,7 @@ export interface IProduct {
 	};
 	images: string[];
 	thumbnail: string;
+	quantity?: number;
 }
 
 export type TLoading = "idle" | "pending" | "succeeded" | "failed";
