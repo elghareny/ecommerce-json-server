@@ -2,7 +2,9 @@
 
 import {CartItemsList, CartSubtotalPrice} from "@components/ecommerce";
 import Loading from "@components/feedback/Loading";
+import Heading from "@components/shared/Heading";
 import {
+	cartCleanUp,
 	cartItemsChangeQuantity,
 	cartRemoveItem,
 	getProductsByItems,
@@ -25,6 +27,9 @@ const Cart = () => {
 	// ACTIONS
 	useEffect(() => {
 		dispatch(getProductsByItems());
+		return () => {
+			dispatch(cartCleanUp());
+		};
 	}, [dispatch]);
 
 	const changeQuantityHandler = useCallback(
@@ -44,24 +49,27 @@ const Cart = () => {
 	);
 
 	return (
-		<div>
-			<Loading
-				error={error}
-				status={loading}>
-				<>
-					{cartProducts.length ? (
-						<CartItemsList
-							items={cartProducts}
-							changeQuantityHandler={changeQuantityHandler}
-							removeCartItemHandler={removeCartItemHandler}
-						/>
-					) : (
-						"Your Cart is empty"
-					)}
-				</>
-			</Loading>
+		<>
+			<Heading title={`Your Cart`} />
+			<div className=' text-xl font-semibold'>
+				<Loading
+					error={error}
+					status={loading}>
+					<>
+						{cartProducts.length ? (
+							<CartItemsList
+								items={cartProducts}
+								changeQuantityHandler={changeQuantityHandler}
+								removeCartItemHandler={removeCartItemHandler}
+							/>
+						) : (
+							"Your Cart is empty"
+						)}
+					</>
+				</Loading>
+			</div>
 			<CartSubtotalPrice cartProducts={cartProducts} />
-		</div>
+		</>
 	);
 };
 

@@ -8,6 +8,7 @@ import Home from "@pages/Home";
 import Login from "@pages/Login";
 import Products from "@pages/Products";
 import Register from "@pages/Register";
+import Wishlist from "@pages/Wishlist";
 import {
 	createBrowserRouter,
 	createRoutesFromElements,
@@ -49,6 +50,10 @@ export const router = createBrowserRouter(
 				<Route
 					path='/cart'
 					element={<Cart />}
+				/>
+				<Route
+					path='/wishlist'
+					element={<Wishlist />}
 				/>
 				<Route
 					path='/login'

@@ -3,43 +3,33 @@
 import {Product} from "@components/ecommerce";
 import Loading from "@components/feedback/Loading";
 import GridList from "@components/shared/GridList";
-import Heading from "@components/shared/Heading";
 import {useAppDispatch, useAppSelector} from "@redux/hooks";
-import {getProductsBySlug, productsCleanUp} from "@redux/products/productSlice";
+import {getWishlistItems, wishlistCleanUp} from "@redux/wishlist/wishlistSlice";
 import {useEffect} from "react";
-import {useParams} from "react-router-dom";
 
-const Products = () => {
+const Wishlist = () => {
 	// STATES
-	console.log("Products");
-
-	const params = useParams();
 	const dispatch = useAppDispatch();
-	const {error, loading, records} = useAppSelector((state) => state.products);
-
+	const {loading, error, records} = useAppSelector((state) => state.wishlist);
 	const cartItems = useAppSelector((state) => state.cart.items);
-	const wishlistItemsId = useAppSelector((state) => state.wishlist.itemsID);
 
-	const productsFullInfo = records.map((el) => ({
-		...el,
-		quantity: cartItems[el.id] as number,
-		isLiked: wishlistItemsId.includes(el.id),
+	const productsFullInfo = records.map((record) => ({
+		...record,
+		quantity: cartItems[record.id],
+		isLiked: true,
 	}));
 
 	// ACTIONS
-
 	useEffect(() => {
-		dispatch(getProductsBySlug(params.slug as string));
+		dispatch(getWishlistItems());
 		return () => {
-			dispatch(productsCleanUp());
+			dispatch(wishlistCleanUp());
 		};
-	}, [dispatch, params]);
+	}, [dispatch]);
 
 	// RENDERS
-
 	return (
-		<>
-			<Heading title={`${params.slug?.toUpperCase()}`} />
+		<div>
 			<Loading
 				error={error}
 				status={loading}>
@@ -55,8 +45,8 @@ const Products = () => {
 					/>
 				</div>
 			</Loading>
-		</>
+		</div>
 	);
 };
 
-export default Products;
+export default Wishlist;

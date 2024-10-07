@@ -46,6 +46,7 @@ export interface IProduct {
 	images: string[];
 	thumbnail: string;
 	quantity?: number;
+	isLiked?: boolean;
 }
 
 export type TLoading = "idle" | "pending" | "succeeded" | "failed";

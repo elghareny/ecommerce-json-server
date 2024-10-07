@@ -11,7 +11,7 @@ const CartSubtotalPrice = ({cartProducts}: IProps) => {
 		return acc + el.price * (el.quantity ?? 0);
 	}, 0);
 	return (
-		<div className='sticky bottom-0 flex justify-between items-center bg-white px-5 py-2'>
+		<div className='sticky bottom-0 flex justify-between items-center bg-white p-5 w-3/4 mx-auto border-t-4 border-gray-700'>
 			<span className='text-xl font-semibold'>Subtotal:</span>
 			<span className='text-xl font-semibold'>
 				{cartSubtotalPrice.toFixed(2)}
