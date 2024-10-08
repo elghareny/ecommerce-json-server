@@ -1,5 +1,5 @@
 /** @format */
-import {HeaderCart, HeaderWishList} from "@components/ecommerce";
+import {NavIcons} from "@components/ecommerce";
 import {Link, NavLink} from "react-router-dom";
 
 const Nav = () => {
@@ -36,7 +36,7 @@ const Nav = () => {
 		);
 	});
 	return (
-		<nav className='sticky top-0 z-50 flex justify-center bg-[var(--dark-color)] p-5 text-[var(--light-color)]'>
+		<nav className='sticky top-0 z-50 w-full flex justify-center bg-[var(--dark-color)] p-5 text-[var(--light-color)]'>
 			<div className='container flex justify-between items-center'>
 				<div className='flex space-x-5'>
 					<Link
@@ -52,12 +52,7 @@ const Nav = () => {
 					</ul>
 				</div>
 				<div className='flex space-x-5'>
-					<Link to={"/wishlist"}>
-						<HeaderWishList />
-					</Link>
-					<Link to={"/cart"}>
-						<HeaderCart />
-					</Link>
+					<NavIcons />
 					<ul className='flex space-x-3 md:space-x-5 text-lg font-semibold'>
 						{navIconsRender}
 					</ul>

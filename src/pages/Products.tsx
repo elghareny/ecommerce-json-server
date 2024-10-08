@@ -1,49 +1,22 @@
 /** @format */
 
 import {Product} from "@components/ecommerce";
-import Loading from "@components/feedback/Loading";
+import Loading from "@components/feedback/Loading/Loading";
 import GridList from "@components/shared/GridList";
 import Heading from "@components/shared/Heading";
-import {useAppDispatch, useAppSelector} from "@redux/hooks";
-import {getProductsBySlug, productsCleanUp} from "@redux/products/productSlice";
-import {useEffect} from "react";
-import {useParams} from "react-router-dom";
+import useProducts from "@hooks/useProducts";
 
 const Products = () => {
-	// STATES
-	console.log("Products");
-
-	const params = useParams();
-	const dispatch = useAppDispatch();
-	const {error, loading, records} = useAppSelector((state) => state.products);
-
-	const cartItems = useAppSelector((state) => state.cart.items);
-	const wishlistItemsId = useAppSelector((state) => state.wishlist.itemsID);
-
-	const productsFullInfo = records.map((el) => ({
-		...el,
-		quantity: cartItems[el.id] as number,
-		isLiked: wishlistItemsId.includes(el.id),
-	}));
-
-	// ACTIONS
-
-	useEffect(() => {
-		dispatch(getProductsBySlug(params.slug as string));
-		return () => {
-			dispatch(productsCleanUp());
-		};
-	}, [dispatch, params]);
-
-	// RENDERS
+	const {error, loading, productsFullInfo, params} = useProducts();
 
 	return (
 		<>
 			<Heading title={`${params.slug?.toUpperCase()}`} />
 			<Loading
+				type='product'
 				error={error}
 				status={loading}>
-				<div className='grid gap-5 grid-cols-4 lg:grid-cols-8 p-5'>
+				<div className='grid gap-5 grid-cols-auto-fill-150 p-5'>
 					<GridList
 						records={productsFullInfo}
 						renderItem={(product) => (

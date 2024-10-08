@@ -3,6 +3,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import getCategories from "./thunk/thumkCategories";
 import {ICategory, TLoading} from "@interfaces/index";
+import {isString} from "@interfaces/guards";
 
 interface ICategoriesState {
 	records: ICategory[];
@@ -37,7 +38,7 @@ const categoriesSlice = createSlice({
 		builder.addCase(getCategories.rejected, (state, action) => {
 			state.loading = "failed";
 			console.log(action.payload);
-			if (action.payload && typeof action.payload === "string") {
+			if (isString(action.payload)) {
 				state.error = action.payload;
 			}
 		});

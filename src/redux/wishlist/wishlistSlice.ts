@@ -4,6 +4,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import likeToggle from "./thunk/likeToggle";
 import getWishlistItems from "./thunk/getWishlistItems";
 import {IProduct, TLoading} from "@interfaces/index";
+import {isString} from "@interfaces/guards";
 
 interface wishlistState {
 	itemsID: number[];
@@ -58,8 +59,7 @@ const wishlistSlice = createSlice({
 		});
 		builder.addCase(getWishlistItems.rejected, (state, action) => {
 			state.loading = "failed";
-			if (action.payload && typeof action.payload === "string")
-				state.error = action.payload;
+			if (isString(action.payload)) state.error = action.payload;
 		});
 	},
 });

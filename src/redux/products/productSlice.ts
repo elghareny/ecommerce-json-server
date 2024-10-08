@@ -3,6 +3,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {IProduct, TLoading} from "@interfaces/index";
 import getProductsBySlug from "./thunk/thunkProducts";
+import {isString} from "@interfaces/guards";
 
 interface IProductsState {
 	records: IProduct[];
@@ -37,7 +38,7 @@ const ProductsSlice = createSlice({
 		builder.addCase(getProductsBySlug.rejected, (state, action) => {
 			state.loading = "failed";
 			console.log(action.payload);
-			if (action.payload && typeof action.payload === "string") {
+			if (isString(action.payload)) {
 				state.error = action.payload;
 			}
 		});

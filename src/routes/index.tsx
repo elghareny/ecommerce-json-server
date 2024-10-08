@@ -1,14 +1,15 @@
 /** @format */
-import MainLayout from "@layouts/MainLayout/MainLayout";
-import About from "@pages/About";
-import Cart from "@pages/Cart";
-import Categories from "@pages/Categories";
 import Error from "@pages/Error";
-import Home from "@pages/Home";
-import Login from "@pages/Login";
-import Products from "@pages/Products";
-import Register from "@pages/Register";
-import Wishlist from "@pages/Wishlist";
+import {lazy, Suspense} from "react";
+const MainLayout = lazy(() => import("@layouts/MainLayout/MainLayout"));
+const About = lazy(() => import("@pages/About"));
+const Cart = lazy(() => import("@pages/Cart"));
+const Categories = lazy(() => import("@pages/Categories"));
+const Home = lazy(() => import("@pages/Home"));
+const Login = lazy(() => import("@pages/Login"));
+const Products = lazy(() => import("@pages/Products"));
+const Register = lazy(() => import("@pages/Register"));
+const Wishlist = lazy(() => import("@pages/Wishlist"));
 import {
 	createBrowserRouter,
 	createRoutesFromElements,
@@ -20,19 +21,35 @@ export const router = createBrowserRouter(
 		<>
 			<Route
 				path='/'
-				element={<MainLayout />}
+				element={
+					<Suspense fallback='loading please wait ...'>
+						<MainLayout />
+					</Suspense>
+				}
 				errorElement={<Error />}>
 				<Route
 					index
-					element={<Home />}
+					element={
+						<Suspense fallback='loading please wait ...'>
+							<Home />
+						</Suspense>
+					}
 				/>
 				<Route
 					path='/categories'
-					element={<Categories />}
+					element={
+						<Suspense fallback='loading please wait ...'>
+							<Categories />
+						</Suspense>
+					}
 				/>
 				<Route
 					path='/products/:slug'
-					element={<Products />}
+					element={
+						<Suspense fallback='loading please wait ...'>
+							<Products />
+						</Suspense>
+					}
 					loader={({params}) => {
 						if (typeof params.slug !== "string") {
 							throw new Response("Bad Request", {
@@ -45,23 +62,43 @@ export const router = createBrowserRouter(
 				/>
 				<Route
 					path='/about'
-					element={<About />}
+					element={
+						<Suspense fallback='loading please wait ...'>
+							<About />
+						</Suspense>
+					}
 				/>
 				<Route
 					path='/cart'
-					element={<Cart />}
+					element={
+						<Suspense fallback='loading please wait ...'>
+							<Cart />
+						</Suspense>
+					}
 				/>
 				<Route
 					path='/wishlist'
-					element={<Wishlist />}
+					element={
+						<Suspense fallback='loading please wait ...'>
+							<Wishlist />
+						</Suspense>
+					}
 				/>
 				<Route
 					path='/login'
-					element={<Login />}
+					element={
+						<Suspense fallback='loading please wait ...'>
+							<Login />
+						</Suspense>
+					}
 				/>
 				<Route
 					path='/register'
-					element={<Register />}
+					element={
+						<Suspense fallback='loading please wait ...'>
+							<Register />
+						</Suspense>
+					}
 				/>
 			</Route>
 		</>,

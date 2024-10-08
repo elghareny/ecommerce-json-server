@@ -2,6 +2,7 @@
 
 import {IProduct} from "@interfaces/index";
 import {createAsyncThunk} from "@reduxjs/toolkit";
+import {axiosErrorHandler} from "@utils";
 import axios from "axios";
 
 type TResponse = IProduct[];
@@ -9,16 +10,15 @@ type TResponse = IProduct[];
 const getProductsBySlug = createAsyncThunk(
 	"products/getProductsSlug",
 	async (slug: string, thunkAPI) => {
-		const {rejectWithValue} = thunkAPI;
+		const {rejectWithValue, signal} = thunkAPI;
 		try {
-			const response = await axios.get<TResponse>(`/products?category=${slug}`);
+			const response = await axios.get<TResponse>(
+				`/products?category=${slug}`,
+				{signal},
+			);
 			return response.data;
 		} catch (error) {
-			if (axios.isAxiosError(error)) {
-				return rejectWithValue(error.response?.data.message || error.message);
-			} else {
-				return rejectWithValue("An Unknown error");
-			}
+			return rejectWithValue(axiosErrorHandler(error));
 		}
 	},
 );

@@ -2,15 +2,17 @@
 
 import {IProduct} from "@interfaces/index";
 import {createAsyncThunk} from "@reduxjs/toolkit";
+import {axiosErrorHandler} from "@utils";
 import axios from "axios";
 
 const getWishlistItems = createAsyncThunk(
 	"wishlist/getWishlistItems",
 	async (_, thunkAPI) => {
-		const {rejectWithValue, fulfillWithValue} = thunkAPI;
+		const {rejectWithValue, fulfillWithValue, signal} = thunkAPI;
 		try {
 			const userWishlist = await axios.get<{productId: number}[]>(
 				`/wishlist?userId=1`,
+				{signal},
 			);
 			if (!userWishlist.data.length) {
 				return fulfillWithValue([]);
@@ -21,14 +23,11 @@ const getWishlistItems = createAsyncThunk(
 
 			const response = await axios.get<IProduct[]>(
 				`products?${concatenatedItemsId}`,
+				{signal},
 			);
 			return response.data;
 		} catch (error) {
-			if (axios.isAxiosError(error)) {
-				return rejectWithValue(error.response?.data.message || error.message);
-			} else {
-				return rejectWithValue("An Unknown error");
-			}
+			return rejectWithValue(axiosErrorHandler(error));
 		}
 	},
 );

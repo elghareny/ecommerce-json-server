@@ -1,58 +1,25 @@
 /** @format */
 
 import {CartItemsList, CartSubtotalPrice} from "@components/ecommerce";
-import Loading from "@components/feedback/Loading";
+import Loading from "@components/feedback/Loading/Loading";
 import Heading from "@components/shared/Heading";
-import {
-	cartCleanUp,
-	cartItemsChangeQuantity,
-	cartRemoveItem,
-	getProductsByItems,
-} from "@redux/cart/cartSlice";
-import {useAppDispatch, useAppSelector} from "@redux/hooks";
-import {useCallback, useEffect} from "react";
+import useCart from "@hooks/useCart";
 
 const Cart = () => {
-	// STATES
-	const dispatch = useAppDispatch();
-	const {items, error, loading, productsFullInfo} = useAppSelector(
-		(state) => state.cart,
-	);
-
-	const cartProducts = productsFullInfo.map((el) => ({
-		...el,
-		quantity: items[el.id],
-	}));
-
-	// ACTIONS
-	useEffect(() => {
-		dispatch(getProductsByItems());
-		return () => {
-			dispatch(cartCleanUp());
-		};
-	}, [dispatch]);
-
-	const changeQuantityHandler = useCallback(
-		(id: number, quantity: number, isAdd: boolean) => {
-			if (isAdd) {
-				dispatch(cartItemsChangeQuantity({id, quantity: quantity + 1}));
-			} else dispatch(cartItemsChangeQuantity({id, quantity: quantity - 1}));
-		},
-		[dispatch],
-	);
-
-	const removeCartItemHandler = useCallback(
-		(id: number) => {
-			dispatch(cartRemoveItem(id));
-		},
-		[dispatch],
-	);
+	const {
+		cartProducts,
+		changeQuantityHandler,
+		error,
+		loading,
+		removeCartItemHandler,
+	} = useCart();
 
 	return (
 		<>
 			<Heading title={`Your Cart`} />
 			<div className=' text-xl font-semibold'>
 				<Loading
+					type='cart'
 					error={error}
 					status={loading}>
 					<>
