@@ -2,6 +2,7 @@
 
 import {CartItemsList, CartSubtotalPrice} from "@components/ecommerce";
 import Loading from "@components/feedback/Loading/Loading";
+import LottieHandler from "@components/feedback/LottieHandler/LottieHandler";
 import Heading from "@components/shared/Heading";
 import useCart from "@hooks/useCart";
 
@@ -30,7 +31,10 @@ const Cart = () => {
 								removeCartItemHandler={removeCartItemHandler}
 							/>
 						) : (
-							"Your Cart is empty"
+							<LottieHandler
+								type='shoppingEmpty'
+								message={"Your cart is empty"}
+							/>
 						)}
 					</>
 				</Loading>

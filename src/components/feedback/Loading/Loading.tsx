@@ -4,6 +4,7 @@ import {TLoading} from "@interfaces/index";
 import CategorySkeleton from "./skeletons/CategorySkeleton";
 import ProductSkeleton from "./skeletons/ProductSkeleton";
 import CartSkeleton from "./skeletons/CartSkeleton";
+import LottieHandler from "../LottieHandler/LottieHandler";
 
 interface IProps {
 	status: TLoading;
@@ -23,7 +24,13 @@ const Loading = ({status, error, children, type}: IProps) => {
 		return <LoadingType />;
 	}
 	if (status === "failed") {
-		return <p>{error}</p>;
+		return (
+			<LottieHandler
+				type='error'
+				message={error as string}
+				className='text-red-600'
+			/>
+		);
 	}
 	return <>{children}</>;
 };

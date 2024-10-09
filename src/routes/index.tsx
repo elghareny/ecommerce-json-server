@@ -1,4 +1,6 @@
 /** @format */
+import LottieHandler from "@components/feedback/LottieHandler/LottieHandler";
+import PageSuspense from "@components/feedback/PageSuspense";
 import Error from "@pages/Error";
 import {lazy, Suspense} from "react";
 const MainLayout = lazy(() => import("@layouts/MainLayout/MainLayout"));
@@ -22,7 +24,12 @@ export const router = createBrowserRouter(
 			<Route
 				path='/'
 				element={
-					<Suspense fallback='loading please wait ...'>
+					<Suspense
+						fallback={
+							<div className='h-screen flex items-center justify-center'>
+								<LottieHandler type='shoppingLoad' />{" "}
+							</div>
+						}>
 						<MainLayout />
 					</Suspense>
 				}
@@ -30,25 +37,25 @@ export const router = createBrowserRouter(
 				<Route
 					index
 					element={
-						<Suspense fallback='loading please wait ...'>
+						<PageSuspense>
 							<Home />
-						</Suspense>
+						</PageSuspense>
 					}
 				/>
 				<Route
 					path='/categories'
 					element={
-						<Suspense fallback='loading please wait ...'>
+						<PageSuspense>
 							<Categories />
-						</Suspense>
+						</PageSuspense>
 					}
 				/>
 				<Route
 					path='/products/:slug'
 					element={
-						<Suspense fallback='loading please wait ...'>
+						<PageSuspense>
 							<Products />
-						</Suspense>
+						</PageSuspense>
 					}
 					loader={({params}) => {
 						if (typeof params.slug !== "string") {
@@ -63,41 +70,41 @@ export const router = createBrowserRouter(
 				<Route
 					path='/about'
 					element={
-						<Suspense fallback='loading please wait ...'>
+						<PageSuspense>
 							<About />
-						</Suspense>
+						</PageSuspense>
 					}
 				/>
 				<Route
 					path='/cart'
 					element={
-						<Suspense fallback='loading please wait ...'>
+						<PageSuspense>
 							<Cart />
-						</Suspense>
+						</PageSuspense>
 					}
 				/>
 				<Route
 					path='/wishlist'
 					element={
-						<Suspense fallback='loading please wait ...'>
+						<PageSuspense>
 							<Wishlist />
-						</Suspense>
+						</PageSuspense>
 					}
 				/>
 				<Route
 					path='/login'
 					element={
-						<Suspense fallback='loading please wait ...'>
+						<PageSuspense>
 							<Login />
-						</Suspense>
+						</PageSuspense>
 					}
 				/>
 				<Route
 					path='/register'
 					element={
-						<Suspense fallback='loading please wait ...'>
+						<PageSuspense>
 							<Register />
-						</Suspense>
+						</PageSuspense>
 					}
 				/>
 			</Route>

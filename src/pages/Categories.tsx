@@ -17,8 +17,14 @@ const Categories = () => {
 				type='category'
 				error={error}
 				status={loading}>
-				<div className='grid gap-5 grid-cols-auto-fill-200 p-5'>
+				<div
+					className={` p-5 ${
+						records.length === 0
+							? "flex items-center justify-center"
+							: `grid gap-5 grid-cols-auto-fill-200`
+					}`}>
 					<GridList
+						emptyMessage='No categories found'
 						records={records}
 						renderItem={(category) => (
 							<Category

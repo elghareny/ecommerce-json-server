@@ -16,8 +16,14 @@ const Products = () => {
 				type='product'
 				error={error}
 				status={loading}>
-				<div className='grid gap-5 grid-cols-auto-fill-150 p-5'>
+				<div
+					className={` p-5 ${
+						productsFullInfo.length === 0
+							? "flex items-center justify-center"
+							: `grid gap-5 grid-cols-auto-fill-150`
+					}`}>
 					<GridList
+						emptyMessage='No Products found'
 						records={productsFullInfo}
 						renderItem={(product) => (
 							<Product
