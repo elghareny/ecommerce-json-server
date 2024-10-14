@@ -23,19 +23,19 @@ const HeaderIcon = ({totalQuantity, title, icon}: IProps) => {
 		};
 	}, [totalQuantity]);
 	return (
-		<div className=' cursor-pointer self-end flex space-x-2 items-center justify-center border-r-[3px] pr-2'>
+		<div className=' cursor-pointer self-end flex space-x-1 items-center justify-center '>
 			<div className='relative'>
 				{icon}
 				{totalQuantity > 0 && (
 					<div
-						className={`absolute -top-4 -right-2 w-6 h-6 text-sm font-semibold  bg-[var(--color-primary)] border rounded-full flex justify-center items-center ${
+						className={`absolute -top-3 -right-2 w-5 h-5 text-xs font-semibold  bg-[var(--color-primary)] border rounded-full flex justify-center items-center ${
 							isAnimate && "pump-cart-icon"
 						}`}>
 						{totalQuantity}
 					</div>
 				)}
 			</div>
-			<h3 className='text-xl font-semibold'>{title}</h3>
+			<h3 className='text-base font-semibold'>{title}</h3>
 		</div>
 	);
 };

@@ -5,11 +5,13 @@ import {memo} from "react";
 
 interface IProps {
 	title: string;
+	className?: string;
 }
 
-const Heading = ({title}: IProps) => {
+const Heading = ({title, className}: IProps) => {
 	return (
-		<h2 className='sticky top-[68px] bg-white z-40 text-2xl font-semibold px-5 pt-2 pb-2'>
+		<h2
+			className={`bg-white z-40 text-2xl font-semibold px-5 pt-2 pb-2 ${className}`}>
 			{title}
 		</h2>
 	);

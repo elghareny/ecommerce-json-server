@@ -15,10 +15,12 @@ const GridList = <T,>({records, renderItem, emptyMessage}: IProps<T>) => {
 				return renderItem(record);
 			})
 		) : (
-			<LottieHandler
-				type='shoppingEmpty'
-				message={emptyMessage}
-			/>
+			<div className='fixed inset-0'>
+				<LottieHandler
+					type='shoppingEmpty'
+					message={emptyMessage}
+				/>
+			</div>
 		);
 
 	return <>{GridListRender}</>;

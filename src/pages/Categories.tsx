@@ -3,7 +3,6 @@
 import {Category} from "@components/ecommerce";
 import Loading from "@components/feedback/Loading/Loading";
 import GridList from "@components/shared/GridList";
-import Heading from "@components/shared/Heading";
 import useCategories from "@hooks/useCategories";
 
 const Categories = () => {
@@ -12,7 +11,6 @@ const Categories = () => {
 
 	return (
 		<>
-			<Heading title={`Categories`} />
 			<Loading
 				type='category'
 				error={error}
@@ -21,7 +19,7 @@ const Categories = () => {
 					className={` p-5 ${
 						records.length === 0
 							? "flex items-center justify-center"
-							: `grid gap-5 grid-cols-auto-fill-200`
+							: `grid gap-5 grid-cols-auto-fill-150`
 					}`}>
 					<GridList
 						emptyMessage='No categories found'

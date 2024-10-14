@@ -16,9 +16,9 @@ const Cart = () => {
 	} = useCart();
 
 	return (
-		<>
+		<div className='min-h-[calc(100vh-68px)]'>
 			<Heading title={`Your Cart`} />
-			<div className=' text-xl font-semibold'>
+			<div className=' text-xl font-semibold h-full'>
 				<Loading
 					type='cart'
 					error={error}
@@ -31,16 +31,18 @@ const Cart = () => {
 								removeCartItemHandler={removeCartItemHandler}
 							/>
 						) : (
-							<LottieHandler
-								type='shoppingEmpty'
-								message={"Your cart is empty"}
-							/>
+							<div className='fixed inset-0'>
+								<LottieHandler
+									type='shoppingEmpty'
+									message={"Your cart is empty"}
+								/>
+							</div>
 						)}
 					</>
 				</Loading>
 			</div>
 			<CartSubtotalPrice cartProducts={cartProducts} />
-		</>
+		</div>
 	);
 };
 

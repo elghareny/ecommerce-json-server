@@ -18,60 +18,60 @@ const CartSkeleton = () => {
 						y='8'
 						rx='10'
 						ry='10'
-						width='100'
-						height='120'
+						width='90'
+						height='90'
 					/>
 					<rect
-						x='141'
-						y='25'
+						x='118'
+						y='15'
 						rx='5'
 						ry='5'
 						width='230'
 						height='8'
 					/>
 					<rect
-						x='141'
-						y='65'
+						x='118'
+						y='55'
 						rx='5'
 						ry='5'
 						width='140'
 						height='8'
 					/>
 					<rect
-						x='141'
-						y='105'
+						x='118'
+						y='95'
 						rx='5'
 						ry='5'
 						width='120'
 						height='8'
 					/>
 					<rect
-						x='905'
-						y='50'
+						x='735'
+						y='35'
 						rx='5'
 						ry='5'
 						width='43'
 						height='43'
 					/>
 					<rect
-						x='960'
-						y='50'
+						x='790'
+						y='35'
 						rx='5'
 						ry='5'
 						width='43'
 						height='43'
 					/>
 					<rect
-						x='1010'
-						y='50'
+						x='840'
+						y='35'
 						rx='5'
 						ry='5'
 						width='43'
 						height='43'
 					/>
 					<rect
-						x='1060'
-						y='55'
+						x='890'
+						y='40'
 						rx='5'
 						ry='5'
 						width='80'

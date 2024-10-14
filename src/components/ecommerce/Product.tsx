@@ -51,23 +51,23 @@ const Product = memo(({product}: IProps) => {
 	return (
 		<div className='relative w-[160px] flex flex-col justify-between  border-2 border-gray-300 p-2 rounded-lg'>
 			<button
-				className='absolute -top-3 -right-3 bg-white w-fit p-3 rounded-full flex items-center justify-center duration-300 hover:drop-shadow-[0_10px_20px_rgba(255,0,0,.4)]'
+				className='absolute -top-2 -right-2 bg-white w-fit p-2 rounded-full flex items-center justify-center duration-300 hover:drop-shadow-[0_10px_20px_rgba(255,0,0,.4)]'
 				onClick={likeToggleHandler}>
 				{isLoading ? (
 					"loading"
 				) : isLiked ? (
 					<LikeFill
-						width={26}
-						hanging={26}
+						width={20}
+						hanging={20}
 					/>
 				) : (
 					<Like
-						width={26}
-						hanging={26}
+						width={20}
+						hanging={20}
 					/>
 				)}
 			</button>
-			<div className='h-[180px] rounded-lg'>
+			<div className='h-[150px] rounded-lg'>
 				<img
 					loading='lazy'
 					className='w-full h-full bg-[#f2f2f2] block object-cover rounded-lg'
@@ -76,10 +76,12 @@ const Product = memo(({product}: IProps) => {
 				/>
 			</div>
 			<h2 className='text-base font-semibold  w-full overflow-hidden text-ellipsis'>
-				{title}
+				{title.slice(0, 15)}...
 			</h2>
-			<h3 className='text-base font-semibold'>{price.toFixed(2)} EGP</h3>
-			<p className='text-base font-semibold text-gray-600'>
+			<h3 className='text-sm font-semibold text-slate-500'>
+				{price.toFixed(2)} EGP
+			</h3>
+			<p className='text-sm font-semibold text-slate-500'>
 				stock : {currentRemainingQuantity}
 			</p>
 			<button

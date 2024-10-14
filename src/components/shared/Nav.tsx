@@ -1,8 +1,12 @@
 /** @format */
 import {NavIcons} from "@components/ecommerce";
+import {useAppSelector} from "@redux/hooks";
 import {Link, NavLink} from "react-router-dom";
+import DropDown from "./DropDown";
 
 const Nav = () => {
+	const {accessToken, user} = useAppSelector((state) => state.auth);
+
 	const navLinks = [
 		{name: "Categories", path: "/categories"},
 		{name: "About", path: "/about"},
@@ -36,26 +40,30 @@ const Nav = () => {
 		);
 	});
 	return (
-		<nav className='sticky top-0 z-50 w-full flex justify-center bg-[var(--dark-color)] p-5 text-[var(--light-color)]'>
+		<nav className='sticky top-0 z-50 w-full flex justify-center bg-[var(--dark-color)] p-4 text-[var(--light-color)]'>
 			<div className='container flex justify-between items-center'>
-				<div className='flex space-x-5'>
+				<div className='flex space-x-3'>
 					<Link
 						to='/'
-						className='cursor-pointer space-x-2 text-lg font-semibold'>
+						className='cursor-pointer space-x-2 text-base font-semibold'>
 						<span className='p-2 rounded-md text-[var(--light-color)] bg-[var(--color-primary)]'>
 							Ecommerce
 						</span>
 					</Link>
 
-					<ul className='flex space-x-3 md:space-x-5 text-lg font-semibold'>
+					<ul className='flex space-x-2 md:space-x-3 text-base font-semibold'>
 						{navLinksRender}
 					</ul>
 				</div>
 				<div className='flex space-x-5'>
 					<NavIcons />
-					<ul className='flex space-x-3 md:space-x-5 text-lg font-semibold'>
-						{navIconsRender}
-					</ul>
+					{!accessToken ? (
+						<ul className='flex space-x-2 md:space-x-3 text-base font-semibold'>
+							{navIconsRender}
+						</ul>
+					) : (
+						<DropDown user={user} />
+					)}
 				</div>
 			</div>
 		</nav>

@@ -24,14 +24,14 @@ const CartItem = ({
 				<img
 					src={thumbnail}
 					alt={title}
-					className='w-[100px] h-[120px] object-cover'
+					className='w-[90px] h-[90px] object-cover'
 				/>
 				<div className='flex flex-col justify-center items-start space-y-3'>
-					<h2 className='text-xl font-semibold'>{title}</h2>
-					<h3 className='text-xl font-semibold'>
+					<h2 className='text-base font-semibold'>{title}</h2>
+					<h3 className='text-base font-semibold'>
 						price: <span className='text-indigo-600'>{price.toFixed(2)}EG</span>
 					</h3>
-					<h3 className='text-xl font-semibold'>
+					<h3 className='text-base font-semibold'>
 						stock: {currentRemainingQuantity}
 					</h3>
 				</div>
@@ -46,7 +46,7 @@ const CartItem = ({
 							}}>
 							+
 						</button>
-						<span className='border border-gray-400 rounded-lg px-4 py-2 text-xl font-semibold text-indigo-600'>
+						<span className=' text-center border border-gray-400 rounded-lg p-1 w-8 h-8  text-base font-semibold text-indigo-600'>
 							{quantity}
 						</span>
 						<button

@@ -1,5 +1,8 @@
 /** @format */
 
+import {loginSchema, registerSchema} from "@validation/index";
+import {z} from "zod";
+
 export interface ICategory {
 	id?: number;
 	slug: string;
@@ -50,3 +53,23 @@ export interface IProduct {
 }
 
 export type TLoading = "idle" | "pending" | "succeeded" | "failed";
+
+// REGISTER
+
+export interface IRegisterInput {
+	id: string;
+	name: "firstName" | "lastName" | "email" | "password" | "confirmPassword";
+	type: string;
+	placeholder: string;
+}
+
+export type TRegisterFormInputs = z.infer<typeof registerSchema>;
+
+export interface ILoginInput {
+	id: string;
+	name: "email" | "password";
+	type: string;
+	placeholder: string;
+}
+
+export type TLoginFormInputs = z.infer<typeof loginSchema>;

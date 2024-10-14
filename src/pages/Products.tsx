@@ -20,7 +20,7 @@ const Products = () => {
 					className={` p-5 ${
 						productsFullInfo.length === 0
 							? "flex items-center justify-center"
-							: `grid gap-5 grid-cols-auto-fill-150`
+							: `grid gap-5 text-center grid-cols-auto-fill-150`
 					}`}>
 					<GridList
 						emptyMessage='No Products found'

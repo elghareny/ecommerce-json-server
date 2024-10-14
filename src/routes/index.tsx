@@ -1,4 +1,5 @@
 /** @format */
+import ProtectedRout from "@components/auth/ProtectedRout";
 import LottieHandler from "@components/feedback/LottieHandler/LottieHandler";
 import PageSuspense from "@components/feedback/PageSuspense";
 import Error from "@pages/Error";
@@ -12,6 +13,7 @@ const Login = lazy(() => import("@pages/Login"));
 const Products = lazy(() => import("@pages/Products"));
 const Register = lazy(() => import("@pages/Register"));
 const Wishlist = lazy(() => import("@pages/Wishlist"));
+const Profile = lazy(() => import("@pages/Profile"));
 import {
 	createBrowserRouter,
 	createRoutesFromElements,
@@ -86,9 +88,11 @@ export const router = createBrowserRouter(
 				<Route
 					path='/wishlist'
 					element={
-						<PageSuspense>
-							<Wishlist />
-						</PageSuspense>
+						<ProtectedRout>
+							<PageSuspense>
+								<Wishlist />
+							</PageSuspense>
+						</ProtectedRout>
 					}
 				/>
 				<Route
@@ -105,6 +109,16 @@ export const router = createBrowserRouter(
 						<PageSuspense>
 							<Register />
 						</PageSuspense>
+					}
+				/>
+				<Route
+					path='/profile'
+					element={
+						<ProtectedRout>
+							<PageSuspense>
+								<Profile />
+							</PageSuspense>
+						</ProtectedRout>
 					}
 				/>
 			</Route>

@@ -27,11 +27,11 @@ const ProductSkeleton = () => {
 					rx='10'
 					ry='10'
 					width='140'
-					height='180'
+					height='160'
 				/>
 				<rect
 					x='10'
-					y='200'
+					y='170'
 					rx='5'
 					ry='5'
 					width='100'
@@ -39,7 +39,7 @@ const ProductSkeleton = () => {
 				/>
 				<rect
 					x='10'
-					y='220'
+					y='190'
 					rx='5'
 					ry='5'
 					width='80'
@@ -47,7 +47,7 @@ const ProductSkeleton = () => {
 				/>
 				<rect
 					x='10'
-					y='240'
+					y='210'
 					rx='5'
 					ry='5'
 					width='80'
@@ -55,7 +55,7 @@ const ProductSkeleton = () => {
 				/>
 				<rect
 					x='10'
-					y='260'
+					y='230'
 					rx='5'
 					ry='5'
 					width='120'
