@@ -5,12 +5,16 @@ import NotFound from "@assets/lottieFiles/NotFound.json";
 import error from "@assets/lottieFiles/error.json";
 import shoppingEmpty from "@assets/lottieFiles/shoppingEmpty.json";
 import shoppingLoad from "@assets/lottieFiles/shoppingLoad.json";
+import placeOrderDone from "@assets/lottieFiles/placeOrderDone.json";
+import cartSpinner from "@assets/lottieFiles/cartSpinner.json";
 
 const lottieFilesMap = {
 	shoppingLoad,
 	shoppingEmpty,
 	error,
 	NotFound,
+	placeOrderDone,
+	cartSpinner,
 };
 
 interface IProps {

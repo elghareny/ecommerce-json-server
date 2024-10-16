@@ -50,7 +50,17 @@ export interface IProduct {
 	thumbnail: string;
 	quantity?: number;
 	isLiked?: boolean;
+	isAuthenticated?: boolean;
 }
+
+export interface IOrderItem {
+	id: number;
+
+	subtotal: number;
+	items: IProduct[];
+}
+
+// LOADING
 
 export type TLoading = "idle" | "pending" | "succeeded" | "failed";
 
@@ -64,6 +74,8 @@ export interface IRegisterInput {
 }
 
 export type TRegisterFormInputs = z.infer<typeof registerSchema>;
+
+// LOGIN
 
 export interface ILoginInput {
 	id: string;

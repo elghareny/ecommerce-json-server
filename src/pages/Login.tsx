@@ -4,45 +4,26 @@ import FormElement from "@components/forms/FormElement";
 import LabelError from "@components/forms/LabelError";
 import Heading from "@components/shared/Heading";
 import {LoginFormData} from "@data/index";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {TLoginFormInputs} from "@interfaces/index";
-import {authLogin, resetUI} from "@redux/auth/authSlice";
-import {useAppDispatch, useAppSelector} from "@redux/hooks";
-import {loginSchema} from "@validation/index";
+
 import {Eye, EyeOffIcon} from "lucide-react";
-import {useEffect, useState} from "react";
-import {SubmitHandler, useForm} from "react-hook-form";
-import {Navigate, useNavigate} from "react-router-dom";
 import error from "@assets/lottieFiles/error.json";
+import {Navigate} from "react-router-dom";
+import useLogin from "@hooks/useLogin";
 
 const Login = () => {
-	const dispatch = useAppDispatch();
-	const {error, loading, accessToken} = useAppSelector((state) => state.auth);
-	const navigate = useNavigate();
+	// HOOK
 
-	// STATES
-
-	const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 	const {
-		register,
+		accessToken,
+		error,
+		formErrors,
 		handleSubmit,
-		formState: {errors},
-	} = useForm<TLoginFormInputs>({
-		mode: "onBlur",
-		resolver: zodResolver(loginSchema),
-	});
-
-	// HANDLER
-	const passwordClickHandler = () => {
-		setIsPasswordVisible(!isPasswordVisible);
-	};
-	const submitFormHandler: SubmitHandler<TLoginFormInputs> = (data) => {
-		const {email, password} = data;
-		dispatch(authLogin({email, password}))
-			.unwrap()
-			.then(() => navigate("/"));
-	};
-
+		loading,
+		passwordClickHandler,
+		register,
+		submitFormHandler,
+		isPasswordVisible,
+	} = useLogin();
 	// RENDER
 
 	const formDataRender = LoginFormData.map((data, idx) => {
@@ -57,7 +38,7 @@ const Login = () => {
 					name === "password" ? (isPasswordVisible ? "text" : "password") : type
 				}
 				register={register}
-				error={errors[name]?.message}
+				error={formErrors[name]?.message}
 				icon={
 					name === "password" && (isPasswordVisible ? <Eye /> : <EyeOffIcon />)
 				}
@@ -81,12 +62,6 @@ const Login = () => {
 			// </div>
 		);
 	});
-
-	useEffect(() => {
-		return () => {
-			dispatch(resetUI());
-		};
-	}, [dispatch]);
 
 	if (accessToken) {
 		return (

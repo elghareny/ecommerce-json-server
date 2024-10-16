@@ -5,6 +5,7 @@ import products from "./products/productSlice";
 import cart from "./cart/cartSlice";
 import wishlist from "./wishlist/wishlistSlice";
 import auth from "./auth/authSlice";
+import order from "./order/orderSlice";
 import storage from "redux-persist/lib/storage";
 import {
 	FLUSH,
@@ -39,6 +40,7 @@ const rootReducer = combineReducers({
 	products,
 	cart: persistReducer(cartPersistConfig, cart),
 	wishlist,
+	order,
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

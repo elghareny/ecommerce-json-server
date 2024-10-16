@@ -66,7 +66,9 @@ const FormElement = <TFiledValue extends FieldValues>({
 				disabled={disabled}
 			/>
 			{error && <LabelError>{error}</LabelError>}
-			{success && <LabelError className='text-[#90be6d]'>{success}</LabelError>}
+			{success && (
+				<p className='text-[#90be6d] text-base font-semibold '>{success}</p>
+			)}
 		</div>
 	);
 };

@@ -19,8 +19,17 @@
     width: 0;
 }
 
-.active {
+nav .links .active {
     color: var(--color-primary);
+}
+
+aside .active {
+    background: #b0b5bd4f;
+    font-weight: 600;
+}
+
+nav .dropDown .active {
+    background: #334155;
 }
 
 .pump-cart-icon {

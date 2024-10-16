@@ -4,68 +4,29 @@ import FormElement from "@components/forms/FormElement";
 import LabelError from "@components/forms/LabelError";
 import Heading from "@components/shared/Heading";
 import {RegisterFormData} from "@data/index";
-import {zodResolver} from "@hookform/resolvers/zod";
-import useCheckEmailAvailability from "@hooks/useCheckEmailAvailability";
-import {TRegisterFormInputs} from "@interfaces/index";
-import {authRegister, resetUI} from "@redux/auth/authSlice";
-import {useAppDispatch, useAppSelector} from "@redux/hooks";
-import {registerSchema} from "@validation/index";
+import useRegister from "@hooks/useRegister";
 import {CircleAlert, CircleCheckBig, Eye, EyeOffIcon} from "lucide-react";
-import React, {useEffect, useState} from "react";
-import {useForm, SubmitHandler} from "react-hook-form";
-import {Navigate, useNavigate} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 
 const Register = () => {
-	const dispatch = useAppDispatch();
-	const {error, loading, accessToken} = useAppSelector((state) => state.auth);
-	const navigate = useNavigate();
-	// STATES
-	const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
-	const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
-		useState<boolean>(false);
+	// HOOK
 
 	const {
+		error,
+		loading,
+		accessToken,
 		register,
 		handleSubmit,
-		trigger,
-		getFieldState,
-		formState: {errors},
-	} = useForm<TRegisterFormInputs>({
-		mode: "onBlur",
-		resolver: zodResolver(registerSchema),
-	});
-
-	// HANDLERS
-
-	const passwordClickHandler = () => {
-		setIsPasswordVisible(!isPasswordVisible);
-	};
-	const confirmPasswordClickHandler = () => {
-		setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
-	};
-
-	const {
-		checkEmailAvailability,
+		formErrors,
+		passwordClickHandler,
+		confirmPasswordClickHandler,
 		emailAvailabilityStatus,
-		enteredEmail,
-		resetCheckEmailAvailability,
-	} = useCheckEmailAvailability();
-	const submitFormHandler: SubmitHandler<TRegisterFormInputs> = (data) => {
-		const {firstName, lastName, email, password} = data;
-		dispatch(authRegister({firstName, lastName, email, password}))
-			.unwrap()
-			.then(() => navigate("/login"));
-	};
-
-	const emailOnBlurHandler = async (e: React.FocusEvent<HTMLInputElement>) => {
-		const value = e.target.value;
-		await trigger("email");
-		const {isDirty, invalid} = getFieldState("email");
-		if (isDirty && !invalid && enteredEmail !== value) {
-			checkEmailAvailability(value);
-			if (isDirty && invalid && enteredEmail) resetCheckEmailAvailability();
-		}
-	};
+		submitFormHandler,
+		emailOnBlurHandler,
+		isPasswordVisible,
+		isConfirmPasswordVisible,
+		getFieldState,
+	} = useRegister();
 
 	// RENDER
 
@@ -92,16 +53,16 @@ const Register = () => {
 				register={register}
 				error={
 					name === "email"
-						? errors["email"]?.message
-							? errors["email"]?.message
+						? formErrors["email"]?.message
+							? formErrors["email"]?.message
 							: emailAvailabilityStatus === "notAvailable"
 							? "This email is already taken"
 							: emailAvailabilityStatus === "failed" && "Error from server"
-						: errors[name]?.message
+						: formErrors[name]?.message
 				}
 				success={
 					name === "email"
-						? !errors["email"]?.message
+						? !formErrors["email"]?.message
 							? emailAvailabilityStatus === "available" &&
 							  "This email is available for use"
 							: ""
@@ -110,14 +71,14 @@ const Register = () => {
 				icon2={
 					invalid || isDirty ? (
 						name === "email" ? (
-							errors["email"]?.message ? (
+							formErrors["email"]?.message ? (
 								<CircleAlert color='#f90101' />
 							) : emailAvailabilityStatus === "available" ? (
 								<CircleCheckBig color='#05f901' />
 							) : (
 								<CircleAlert color='#f90101' />
 							)
-						) : errors[name] ? (
+						) : formErrors[name] ? (
 							<CircleAlert color='#f90101' />
 						) : (
 							<CircleCheckBig color='#05f901' />
@@ -176,12 +137,6 @@ const Register = () => {
 		// 	</div>
 		// );
 	});
-
-	useEffect(() => {
-		return () => {
-			dispatch(resetUI());
-		};
-	}, [dispatch]);
 
 	if (accessToken) {
 		return (

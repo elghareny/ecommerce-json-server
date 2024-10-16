@@ -13,6 +13,8 @@ const Cart = () => {
 		error,
 		loading,
 		removeCartItemHandler,
+		userAccessToken,
+		placeOrderStatus,
 	} = useCart();
 
 	return (
@@ -32,16 +34,26 @@ const Cart = () => {
 							/>
 						) : (
 							<div className='fixed inset-0'>
-								<LottieHandler
-									type='shoppingEmpty'
-									message={"Your cart is empty"}
-								/>
+								{placeOrderStatus === "succeeded" ? (
+									<LottieHandler
+										type='placeOrderDone'
+										message={"Your order has placed successfully"}
+									/>
+								) : (
+									<LottieHandler
+										type='shoppingEmpty'
+										message={"Your cart is empty"}
+									/>
+								)}
 							</div>
 						)}
 					</>
 				</Loading>
 			</div>
-			<CartSubtotalPrice cartProducts={cartProducts} />
+			<CartSubtotalPrice
+				cartProducts={cartProducts}
+				userAccessToken={userAccessToken}
+			/>
 		</div>
 	);
 };

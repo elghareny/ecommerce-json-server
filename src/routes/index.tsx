@@ -5,6 +5,9 @@ import PageSuspense from "@components/feedback/PageSuspense";
 import Error from "@pages/Error";
 import {lazy, Suspense} from "react";
 const MainLayout = lazy(() => import("@layouts/MainLayout/MainLayout"));
+const ProfileLayout = lazy(
+	() => import("@layouts/ProfileLayout/ProfileLayout"),
+);
 const About = lazy(() => import("@pages/About"));
 const Cart = lazy(() => import("@pages/Cart"));
 const Categories = lazy(() => import("@pages/Categories"));
@@ -13,7 +16,8 @@ const Login = lazy(() => import("@pages/Login"));
 const Products = lazy(() => import("@pages/Products"));
 const Register = lazy(() => import("@pages/Register"));
 const Wishlist = lazy(() => import("@pages/Wishlist"));
-const Profile = lazy(() => import("@pages/Profile"));
+const Account = lazy(() => import("@pages/Account"));
+const Orders = lazy(() => import("@pages/Orders"));
 import {
 	createBrowserRouter,
 	createRoutesFromElements,
@@ -112,15 +116,31 @@ export const router = createBrowserRouter(
 					}
 				/>
 				<Route
-					path='/profile'
+					path='profile'
 					element={
 						<ProtectedRout>
 							<PageSuspense>
-								<Profile />
+								<ProfileLayout />
 							</PageSuspense>
 						</ProtectedRout>
-					}
-				/>
+					}>
+					<Route
+						index
+						element={
+							<PageSuspense>
+								<Account />
+							</PageSuspense>
+						}
+					/>
+					<Route
+						path='orders'
+						element={
+							<PageSuspense>
+								<Orders />
+							</PageSuspense>
+						}
+					/>
+				</Route>
 			</Route>
 		</>,
 	),

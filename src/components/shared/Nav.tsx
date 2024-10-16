@@ -39,6 +39,7 @@ const Nav = () => {
 			</NavLink>
 		);
 	});
+
 	return (
 		<nav className='sticky top-0 z-50 w-full flex justify-center bg-[var(--dark-color)] p-4 text-[var(--light-color)]'>
 			<div className='container flex justify-between items-center'>
@@ -51,7 +52,7 @@ const Nav = () => {
 						</span>
 					</Link>
 
-					<ul className='flex space-x-2 md:space-x-3 text-base font-semibold'>
+					<ul className='links flex space-x-2 md:space-x-3 text-base font-semibold'>
 						{navLinksRender}
 					</ul>
 				</div>

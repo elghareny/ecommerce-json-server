@@ -4,7 +4,7 @@ import {authLogout} from "@redux/auth/authSlice";
 import {useAppDispatch} from "@redux/hooks";
 import {ArrowDownToLineIcon} from "lucide-react";
 import {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 interface IProps {
 	user: {id: number; firstName: string; lastName: string; email: string} | null;
@@ -27,13 +27,14 @@ const DropDown = ({user}: IProps) => {
 			</div>
 			{dropDown && (
 				<div className='absolute bg-[#333] rounded-lg top-10 right-0'>
-					<ul className='flex flex-col justify-start items-center space-y-2 p-2'>
-						<Link
-							to={"/profile"}
+					<ul className='dropDown flex flex-col justify-start items-center space-y-2 p-2'>
+						<NavLink
+							end
+							to={"profile"}
 							onClick={() => setDropDown(false)}
 							className='w-full py-1 pl-3 pr-8 rounded-lg hover:bg-slate-700 duration-300'>
 							Profile
-						</Link>
+						</NavLink>
 						<Link
 							to={"/"}
 							className='w-full py-1 pl-3 pr-8 rounded-lg hover:bg-slate-700 duration-300'

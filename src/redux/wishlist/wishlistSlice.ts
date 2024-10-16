@@ -5,6 +5,7 @@ import likeToggle from "./thunk/likeToggle";
 import getWishlistItems from "./thunk/getWishlistItems";
 import {IProduct, TLoading} from "@interfaces/index";
 import {isString} from "@interfaces/guards";
+import {authLogout} from "@redux/auth/authSlice";
 
 interface wishlistState {
 	itemsID: number[];
@@ -55,11 +56,24 @@ const wishlistSlice = createSlice({
 		});
 		builder.addCase(getWishlistItems.fulfilled, (state, action) => {
 			state.loading = "succeeded";
-			state.records = action.payload;
+			if (action.payload.dataType === "productsFullInfo") {
+				state.records = action.payload.data as IProduct[];
+			} else if (action.payload.dataType === "productsIds") {
+				state.itemsID = action.payload.data as number[];
+			} else {
+				state.records = [];
+				state.itemsID = [];
+			}
 		});
 		builder.addCase(getWishlistItems.rejected, (state, action) => {
 			state.loading = "failed";
 			if (isString(action.payload)) state.error = action.payload;
+		});
+
+		// when logout reset wishlist items
+		builder.addCase(authLogout, (state) => {
+			state.itemsID = [];
+			state.records = [];
 		});
 	},
 });

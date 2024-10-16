@@ -7,6 +7,7 @@ import {
 	getProductsByItems,
 } from "@redux/cart/cartSlice";
 import {useAppDispatch, useAppSelector} from "@redux/hooks";
+import {resetOrderStatus} from "@redux/order/orderSlice";
 import {useCallback, useEffect} from "react";
 const useCart = () => {
 	// STATES
@@ -14,6 +15,8 @@ const useCart = () => {
 	const {items, error, loading, productsFullInfo} = useAppSelector(
 		(state) => state.cart,
 	);
+	const placeOrderStatus = useAppSelector((state) => state.order.loading);
+	const userAccessToken = useAppSelector((state) => state.auth.accessToken);
 
 	const cartProducts = productsFullInfo.map((el) => ({
 		...el,
@@ -26,6 +29,7 @@ const useCart = () => {
 		return () => {
 			promise.abort();
 			dispatch(cartCleanUp());
+			dispatch(resetOrderStatus());
 		};
 	}, [dispatch]);
 
@@ -50,6 +54,8 @@ const useCart = () => {
 		cartProducts,
 		changeQuantityHandler,
 		removeCartItemHandler,
+		userAccessToken,
+		placeOrderStatus,
 	};
 };
 
