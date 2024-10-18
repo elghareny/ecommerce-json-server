@@ -35,7 +35,7 @@ IProps) => {
 					className='w-full h-full flex items-center justify-center bg-[#33333387] '
 					onClick={backdrop === "hidden" ? modalHandler : () => {}}>
 					<div
-						className='flex flex-col items-start space-y-3 p-4 min-w-[300px] max-h-screen bg-white rounded-lg'
+						className='flex flex-col items-start space-y-3 p-4 min-w-[300px]  bg-white rounded-lg'
 						onClick={(e) => e.stopPropagation()}>
 						<div className='w-full flex justify-between items-center border-b border-gray-500 pb-2 '>
 							<h1 className='text-base font-semibold'>{title}</h1>

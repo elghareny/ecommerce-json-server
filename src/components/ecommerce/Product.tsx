@@ -8,6 +8,8 @@ import Like from "@assets/svg/like.svg?react";
 import LikeFill from "@assets/svg/like-fill.svg?react";
 import {likeToggle} from "@redux/wishlist/wishlistSlice";
 import Modal from "@components/shared/Modal";
+import Spinner from "@components/shared/Spinner";
+import Button from "@components/shared/Button";
 
 interface IProps {
 	product: IProduct;
@@ -26,6 +28,7 @@ const Product = memo(({product}: IProps) => {
 	// STATES
 	const [isBtnDisabled, setIsBtnDisabled] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	const [isLoadingAddToCart, setIsLoadingAddToCart] = useState(false);
 	const [isShowModal, setIsShowModal] = useState(false);
 	const dispatch = useAppDispatch();
 
@@ -40,6 +43,7 @@ const Product = memo(({product}: IProps) => {
 		if (!isBtnDisabled) return;
 		const debounce = setTimeout(() => {
 			setIsBtnDisabled(false);
+			setIsLoadingAddToCart(false);
 		}, 300);
 
 		return () => {
@@ -50,6 +54,7 @@ const Product = memo(({product}: IProps) => {
 	const addToCartHandler = () => {
 		dispatch(addToCart(id));
 		setIsBtnDisabled(true);
+		setIsLoadingAddToCart(true);
 	};
 
 	const likeToggleHandler = () => {
@@ -79,12 +84,12 @@ const Product = memo(({product}: IProps) => {
 				</Modal.Footer>
 			</Modal>
 
-			<div className='relative w-[160px] flex flex-col justify-between  border-2 border-gray-300 p-2 rounded-lg'>
+			<div className='relative w-[160px] flex flex-col justify-between  shadow-[0_2px_10px_3px_rgba(78,102,137,0.2)] p-2 rounded-lg'>
 				<button
-					className='absolute -top-2 -right-2 bg-white w-fit p-2 rounded-full flex items-center justify-center duration-300 hover:drop-shadow-[0_10px_20px_rgba(255,0,0,.4)]'
+					className='absolute -top-2 -right-2 bg-white w-fit p-2 rounded-full flex items-center justify-center duration-300 hover:drop-shadow-[0_10px_20px_rgba(255,0,0,.4)] object-cover'
 					onClick={likeToggleHandler}>
 					{isLoading ? (
-						"loading"
+						<Spinner className='text-red-500' />
 					) : isLiked ? (
 						<LikeFill
 							width={20}
@@ -114,21 +119,15 @@ const Product = memo(({product}: IProps) => {
 				<p className='text-sm font-semibold text-slate-500'>
 					stock : {currentRemainingQuantity}
 				</p>
-				<button
+				<Button
+					className='mt-2'
+					isLoading={isLoadingAddToCart}
+					spinnerType='circular'
+					size={"sm"}
 					disabled={isBtnDisabled || quantityReachedToMax}
-					className={``}
 					onClick={addToCartHandler}>
-					{isBtnDisabled ? (
-						<svg
-							className='animate-spin h-5 w-5 mr-3 ...'
-							viewBox='0 0 24 24'>
-							{" "}
-							loading...
-						</svg>
-					) : (
-						"Add to cart"
-					)}
-				</button>
+					Add to cart
+				</Button>
 			</div>
 		</>
 	);

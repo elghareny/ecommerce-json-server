@@ -31,7 +31,7 @@ const CartSkeleton = () => {
 					/>
 					<rect
 						x='118'
-						y='55'
+						y='60'
 						rx='5'
 						ry='5'
 						width='140'
@@ -39,43 +39,43 @@ const CartSkeleton = () => {
 					/>
 					<rect
 						x='118'
-						y='95'
+						y='105'
 						rx='5'
 						ry='5'
 						width='120'
 						height='8'
 					/>
 					<rect
-						x='735'
-						y='35'
+						x='725'
+						y='55'
+						rx='5'
+						ry='5'
+						width='40'
+						height='40'
+					/>
+					<rect
+						x='780'
+						y='55'
 						rx='5'
 						ry='5'
 						width='43'
 						height='43'
 					/>
 					<rect
-						x='790'
-						y='35'
+						x='830'
+						y='55'
 						rx='5'
 						ry='5'
-						width='43'
-						height='43'
+						width='40'
+						height='40'
 					/>
 					<rect
-						x='840'
-						y='35'
+						x='920'
+						y='55'
 						rx='5'
 						ry='5'
-						width='43'
-						height='43'
-					/>
-					<rect
-						x='890'
-						y='40'
-						rx='5'
-						ry='5'
-						width='80'
-						height='30'
+						width='42'
+						height='42'
 					/>
 				</ContentLoader>
 				<ContentLoader
@@ -87,7 +87,7 @@ const CartSkeleton = () => {
 					foregroundColor='#e9e9e9'>
 					<rect
 						x='0'
-						y='3'
+						y='5'
 						rx='5'
 						ry='5'
 						width='1152'

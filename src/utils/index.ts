@@ -1,5 +1,6 @@
 /** @format */
 
 import axiosErrorHandler from "./axiosErrorHandler";
+import {cn} from "./mergeTailwind";
 
-export {axiosErrorHandler};
+export {axiosErrorHandler, cn};

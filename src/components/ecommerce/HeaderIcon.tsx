@@ -6,7 +6,7 @@ interface IProps {
 	totalQuantity: number;
 	icon?: ReactNode;
 }
-const HeaderIcon = ({totalQuantity, title, icon}: IProps) => {
+const HeaderIcon = ({totalQuantity, icon}: IProps) => {
 	// STATES
 
 	const [isAnimate, setIsAnimate] = useState(false);
@@ -28,14 +28,13 @@ const HeaderIcon = ({totalQuantity, title, icon}: IProps) => {
 				{icon}
 				{totalQuantity > 0 && (
 					<div
-						className={`absolute -top-3 -right-2 w-5 h-5 text-xs font-semibold  bg-[var(--color-primary)] border rounded-full flex justify-center items-center ${
+						className={`absolute -top-3 -right-2 w-5 h-5 text-xs font-semibold text-white  bg-slate-700 border rounded-full flex justify-center items-center ${
 							isAnimate && "pump-cart-icon"
 						}`}>
 						{totalQuantity}
 					</div>
 				)}
 			</div>
-			<h3 className='text-base font-semibold'>{title}</h3>
 		</div>
 	);
 };

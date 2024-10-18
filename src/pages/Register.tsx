@@ -2,6 +2,7 @@
 
 import FormElement from "@components/forms/FormElement";
 import LabelError from "@components/forms/LabelError";
+import Button from "@components/shared/Button";
 import Heading from "@components/shared/Heading";
 import {RegisterFormData} from "@data/index";
 import useRegister from "@hooks/useRegister";
@@ -148,19 +149,23 @@ const Register = () => {
 	}
 
 	return (
-		<div className='h-[calc(100vh-68px)] flex  flex-col justify-center items-center space-y-2'>
+		<div className='h-[calc(100vh-68px)] w-full flex  flex-col justify-center items-center space-y-2'>
 			<Heading title='Create an Account' />
 			<form
-				className='flex flex-col space-y-2 w-1/2 border-[3px] p-5 border-slate-400 rounded-lg'
+				className='flex flex-col  min-w-[400px]  max-w-1/2 shadow-[0_2px_20px_3px_rgba(78,102,137,0.3)] px-5 py-2 border-slate-400 rounded-lg'
 				onSubmit={handleSubmit(submitFormHandler)}>
 				{formDataRender}
-				<button
-					type='submit'
+				<Button
+					className='mt-2'
+					variant={"default"}
+					size={"sm"}
+					isLoading={loading === "pending"}
 					disabled={
 						emailAvailabilityStatus !== "available" || loading === "pending"
-					}>
+					}
+					type='submit'>
 					Sign Up
-				</button>
+				</Button>
 				{error && <LabelError>{error}</LabelError>}
 			</form>
 		</div>

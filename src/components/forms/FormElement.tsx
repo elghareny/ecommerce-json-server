@@ -43,7 +43,7 @@ const FormElement = <TFiledValue extends FieldValues>({
 		}
 	};
 	return (
-		<div className='flex flex-col space-y-1'>
+		<div className='flex flex-col space-y-1 w-full'>
 			<label
 				className='text-lg my-1'
 				htmlFor={name}>
@@ -53,7 +53,7 @@ const FormElement = <TFiledValue extends FieldValues>({
 				className={`${
 					error
 						? "border-red-400 focus:border-red-600"
-						: " border-[#90be6d] focus:border-[#90be6d]"
+						: " border-slate-300 focus:border-slate-400"
 				} `}
 				placeholder={placeholder}
 				type={type}

@@ -28,7 +28,7 @@ const NavIcons = () => {
 				<HeaderIcon
 					icon={
 						<WishList
-							fill='#fff'
+							fill='#000'
 							title='WishList'
 						/>
 					}
@@ -42,7 +42,7 @@ const NavIcons = () => {
 					totalQuantity={cartTotalNum}
 					icon={
 						<Cart
-							fill='#fff'
+							fill='#000'
 							title='ecommerce cart'
 						/>
 					}

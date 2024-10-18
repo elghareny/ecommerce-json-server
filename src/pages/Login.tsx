@@ -9,6 +9,7 @@ import {Eye, EyeOffIcon} from "lucide-react";
 import error from "@assets/lottieFiles/error.json";
 import {Navigate} from "react-router-dom";
 import useLogin from "@hooks/useLogin";
+import Button from "@components/shared/Button";
 
 const Login = () => {
 	// HOOK
@@ -72,13 +73,20 @@ const Login = () => {
 		);
 	}
 	return (
-		<div className='h-[calc(100vh-68px)] flex  flex-col justify-center items-center space-y-2'>
+		<div className='h-[calc(100vh-68px)] w-full flex flex-col justify-center items-center space-y-2'>
 			<Heading title='Login To Your Account' />
 			<form
 				onSubmit={handleSubmit(submitFormHandler)}
-				className='flex flex-col space-y-2 w-1/2 border-[3px] p-5 border-slate-400 rounded-lg'>
+				className='flex flex-col min-w-[400px]  max-w-1/2 shadow-[0_2px_20px_3px_rgba(78,102,137,0.3)] px-5 py-2 rounded-lg'>
 				{formDataRender}
-				<button type='submit'>Login</button>
+				<Button
+					className='mt-2'
+					variant={"default"}
+					type='submit'
+					isLoading={loading === "pending"}
+					disabled={loading === "pending"}>
+					Login
+				</Button>
 				{error && <LabelError>{error}</LabelError>}
 			</form>
 		</div>

@@ -2,6 +2,9 @@
 
 import {IProduct} from "@interfaces/index";
 import {memo} from "react";
+import ProductFullInfo from "../ProductFullInfo";
+import Button from "@components/shared/Button";
+import {Minus, Plus, Trash2} from "lucide-react";
 
 /** @format */
 interface IProps {
@@ -15,12 +18,16 @@ const CartItem = ({
 	changeQuantityHandler,
 	removeCartItemHandler,
 }: IProps) => {
-	const {thumbnail, price, title, quantity, stock} = product;
+	const {quantity, stock} = product;
 
 	const currentRemainingQuantity = stock - (quantity ?? 0);
 	return (
 		<div className='flex justify-between p-2'>
-			<div className='flex space-x-5'>
+			<ProductFullInfo
+				product={product}
+				type='row'
+			/>
+			{/* <div className='flex space-x-5'>
 				<img
 					src={thumbnail}
 					alt={title}
@@ -35,32 +42,39 @@ const CartItem = ({
 						stock: {currentRemainingQuantity}
 					</h3>
 				</div>
-			</div>
+			</div> */}
 			<div className='flex justify-center items-center space-x-10'>
 				<div className='flex flex-col justify-center items-center space-y-3'>
 					<div className='flex items-center justify-center space-x-5'>
-						<button
+						<Button
+							variant={"custom"}
+							className='p-[6px]'
 							disabled={currentRemainingQuantity === 0}
 							onClick={() => {
 								changeQuantityHandler(product.id, quantity ?? 0, true);
 							}}>
-							+
-						</button>
-						<span className=' text-center border border-gray-400 rounded-lg p-1 w-8 h-8  text-base font-semibold text-indigo-600'>
+							<Plus size={20} />
+						</Button>
+						<span className='flex items-center justify-center text-center border border-gray-400 rounded-lg p-1 w-10 h-10  text-base font-semibold text-indigo-600'>
 							{quantity}
 						</span>
-						<button
+						<Button
+							className='p-[6px]'
+							variant={"custom"}
 							disabled={quantity === 1}
 							onClick={() => {
 								changeQuantityHandler(product.id, quantity ?? 0, false);
 							}}>
-							-
-						</button>
+							<Minus size={20} />
+						</Button>
 					</div>
 				</div>
-				<button onClick={() => removeCartItemHandler(product.id)}>
-					Remove
-				</button>
+				<Button
+					variant={"danger"}
+					className='p-2'
+					onClick={() => removeCartItemHandler(product.id)}>
+					<Trash2 size={20} />
+				</Button>
 			</div>
 		</div>
 	);

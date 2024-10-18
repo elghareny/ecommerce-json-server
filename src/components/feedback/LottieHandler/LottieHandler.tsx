@@ -33,6 +33,8 @@ const LottieHandler = ({type, message, className}: IProps) => {
 				style={
 					type === "NotFound"
 						? {width: "900px", height: "500px"}
+						: type === "cartSpinner"
+						? {width: "70px", height: "70px"}
 						: {width: "700px", height: "400px"}
 				}
 			/>

@@ -1,38 +1,20 @@
 /** @format */
 
-import {Product} from "@components/ecommerce";
+import ProductFullInfo from "@components/ecommerce/ProductFullInfo";
 import Loading from "@components/feedback/Loading/Loading";
 import Modal from "@components/shared/Modal";
-import {IProduct} from "@interfaces/index";
-import {useAppDispatch, useAppSelector} from "@redux/hooks";
-import {getOrders, resetOrderStatus} from "@redux/order/orderSlice";
-import {useEffect, useState} from "react";
+import useOrder from "@hooks/useOrder";
 
 const Orders = () => {
-	const dispatch = useAppDispatch();
-	const {orderList, error, loading} = useAppSelector((state) => state.order);
-	const [isShowModal, setIsShowModal] = useState(false);
-	const [SelectedOrders, setSelectedOrders] = useState<IProduct[]>([]);
-
-	const modalHandler = () => {
-		setIsShowModal(false);
-		setSelectedOrders([]);
-	};
-
-	const selectOrderHandler = (id: number) => {
-		const orderSelected = orderList?.find((order) => order.id === id);
-		const newItems = orderSelected?.items ?? [];
-		setIsShowModal(true);
-		setSelectedOrders((prev) => [...prev, ...newItems]);
-	};
-
-	useEffect(() => {
-		dispatch(getOrders());
-		return () => {
-			dispatch(getOrders()).abort();
-			dispatch(resetOrderStatus());
-		};
-	}, [dispatch]);
+	const {
+		orderList,
+		error,
+		loading,
+		isShowModal,
+		SelectedOrders,
+		modalHandler,
+		selectOrderHandler,
+	} = useOrder();
 	return (
 		<div>
 			<Modal
@@ -40,11 +22,12 @@ const Orders = () => {
 				modalHandler={modalHandler}
 				title='Order Placed Details'>
 				<Modal.Body>
-					<div className='overflow-y-auto grid gap-5 text-center grid-cols-auto-fill-150 w-[600px] h-[400px] '>
+					<div className='overflow-y-scroll grid gap-3 text-center grid-cols-auto-fill-130 w-[600px] max-h-[calc(100vh-100px)] '>
 						{SelectedOrders.map((product) => (
-							<Product
+							<ProductFullInfo
 								key={product.id}
 								product={product}
+								type='column'
 							/>
 						))}
 					</div>
@@ -58,20 +41,20 @@ const Orders = () => {
 				<table className='w-full border'>
 					<thead className='border-b'>
 						<tr>
-							<th className='border'>Number</th>
+							<th className='border'>Id</th>
 							<th className='border'>Items</th>
 							<th className='border'>Total Price</th>
 							<th className='border'>Actions</th>
 						</tr>
 					</thead>
 					<tbody className='text-center'>
-						{orderList?.map((order, idx) => (
+						{orderList?.map((order) => (
 							<tr
 								key={order.id}
 								className='border-b'>
-								<td className='border'>{idx + 1}</td>
+								<td className='border'>{order.id}</td>
 								<td className='border'>{order.items.length} Orders</td>
-								<td className='border'>{order.subtotal.toFixed(2)}</td>
+								<td className='border'>{order.subtotal.toFixed(2)} EGP</td>
 								<td className='border'>
 									<button
 										onClick={() => {

@@ -17,7 +17,7 @@ const DropDown = ({user}: IProps) => {
 		<div className='relative'>
 			<div className='p2'>
 				<button
-					className='flex items-center space-x-1 text-white'
+					className='flex items-center space-x-1 text-black'
 					onClick={() => setDropDown(!dropDown)}>
 					<h2>
 						{user?.firstName} {user?.lastName}
@@ -26,18 +26,18 @@ const DropDown = ({user}: IProps) => {
 				</button>
 			</div>
 			{dropDown && (
-				<div className='absolute bg-[#333] rounded-lg top-10 right-0'>
+				<div className='absolute bg-slate-300 rounded-lg top-10 right-0'>
 					<ul className='dropDown flex flex-col justify-start items-center space-y-2 p-2'>
 						<NavLink
 							end
 							to={"profile"}
 							onClick={() => setDropDown(false)}
-							className='w-full py-1 pl-3 pr-8 rounded-lg hover:bg-slate-700 duration-300'>
+							className='w-full py-1 pl-3 pr-8 rounded-lg hover:bg-slate-400 duration-300'>
 							Profile
 						</NavLink>
 						<Link
 							to={"/"}
-							className='w-full py-1 pl-3 pr-8 rounded-lg hover:bg-slate-700 duration-300'
+							className='w-full py-1 pl-3 pr-8 rounded-lg hover:bg-slate-400 duration-300'
 							onClick={() => {
 								dispatch(authLogout());
 								setDropDown(false);
