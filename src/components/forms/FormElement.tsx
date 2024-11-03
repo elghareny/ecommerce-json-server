@@ -45,7 +45,7 @@ const FormElement = <TFiledValue extends FieldValues>({
 	return (
 		<div className='flex flex-col space-y-1 w-full'>
 			<label
-				className='text-lg my-1'
+				className='text-base font-semibold my-1'
 				htmlFor={name}>
 				{placeholder}
 			</label>

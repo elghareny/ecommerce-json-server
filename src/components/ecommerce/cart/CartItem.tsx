@@ -43,31 +43,29 @@ const CartItem = ({
 					</h3>
 				</div>
 			</div> */}
-			<div className='flex justify-center items-center space-x-10'>
-				<div className='flex flex-col justify-center items-center space-y-3'>
-					<div className='flex items-center justify-center space-x-5'>
-						<Button
-							variant={"custom"}
-							className='p-[6px]'
-							disabled={currentRemainingQuantity === 0}
-							onClick={() => {
-								changeQuantityHandler(product.id, quantity ?? 0, true);
-							}}>
-							<Plus size={20} />
-						</Button>
-						<span className='flex items-center justify-center text-center border border-gray-400 rounded-lg p-1 w-10 h-10  text-base font-semibold text-indigo-600'>
-							{quantity}
-						</span>
-						<Button
-							className='p-[6px]'
-							variant={"custom"}
-							disabled={quantity === 1}
-							onClick={() => {
-								changeQuantityHandler(product.id, quantity ?? 0, false);
-							}}>
-							<Minus size={20} />
-						</Button>
-					</div>
+			<div className='flex justify-center items-center space-x-3 md:space-x-10'>
+				<div className='flex flex-col md:flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-3'>
+					<Button
+						variant={"custom"}
+						className='p-[6px]'
+						disabled={currentRemainingQuantity === 0}
+						onClick={() => {
+							changeQuantityHandler(product.id, quantity ?? 0, true);
+						}}>
+						<Plus size={20} />
+					</Button>
+					<span className='flex items-center justify-center text-center border border-gray-400 rounded-lg p-1 w-10 h-10  text-base font-semibold text-indigo-600'>
+						{quantity}
+					</span>
+					<Button
+						className='p-[6px]'
+						variant={"custom"}
+						disabled={quantity === 1}
+						onClick={() => {
+							changeQuantityHandler(product.id, quantity ?? 0, false);
+						}}>
+						<Minus size={20} />
+					</Button>
 				</div>
 				<Button
 					variant={"danger"}

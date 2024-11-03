@@ -21,6 +21,7 @@ const useCart = () => {
 	const cartProducts = productsFullInfo.map((el) => ({
 		...el,
 		quantity: items[el.id],
+		priceAfterDiscount: el.price! - (el.price! * el.discountPercentage!) / 100,
 	}));
 
 	// ACTIONS

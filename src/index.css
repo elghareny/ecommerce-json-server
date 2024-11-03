@@ -15,13 +15,14 @@
     }
 }
 
-::-webkit-scrollbar {
+
+/* ::-webkit-scrollbar {
     width: 0;
-}
+} */
 
 nav .links .active {
-    color: rgb(123, 0, 212);
     text-decoration: underline;
+    text-underline-offset: 6px;
 }
 
 aside .active {
@@ -31,6 +32,7 @@ aside .active {
 
 nav .dropDown .active {
     background: #334155;
+    color: white;
 }
 
 .pump-cart-icon {

@@ -4,6 +4,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import {IProduct, TLoading} from "@interfaces/index";
 import getProductsBySlug from "./thunk/thunkProducts";
 import {isString} from "@interfaces/guards";
+import getAllProducts from "./thunk/getAllProducts";
 
 interface IProductsState {
 	records: IProduct[];
@@ -37,7 +38,25 @@ const ProductsSlice = createSlice({
 		});
 		builder.addCase(getProductsBySlug.rejected, (state, action) => {
 			state.loading = "failed";
-			console.log(action.payload);
+			if (isString(action.payload)) {
+				state.error = action.payload;
+			}
+		});
+
+		// get All products
+
+		builder.addCase(getAllProducts.pending, (state) => {
+			state.loading = "pending";
+			state.error = null;
+		});
+		builder.addCase(getAllProducts.fulfilled, (state, action) => {
+			state.loading = "succeeded";
+			if (action.payload && Array.isArray(action.payload)) {
+				state.records = action.payload;
+			}
+		});
+		builder.addCase(getAllProducts.rejected, (state, action) => {
+			state.loading = "failed";
 			if (isString(action.payload)) {
 				state.error = action.payload;
 			}
@@ -47,5 +66,5 @@ const ProductsSlice = createSlice({
 
 export const {productsCleanUp} = ProductsSlice.actions;
 
-export {getProductsBySlug};
+export {getProductsBySlug, getAllProducts};
 export default ProductsSlice.reducer;

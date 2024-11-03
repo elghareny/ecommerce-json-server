@@ -13,7 +13,7 @@ const buttonVariants = cva(
 			variant: {
 				// ** FILLED
 				default:
-					"bg-slate-900 dark:bg-[#225ad5] dark:text-white dark:hover:bg-[#286afb] disabled:bg-[#286bfb97] disabled:hover:bg-[#286bfb97] ",
+					"bg-slate-900 dark:bg-[#172554e0] dark:text-white dark:hover:bg-[#172554] disabled:bg-[#172554e0] disabled:hover:bg-[#172554] ",
 				danger:
 					"bg-red-900 dark:bg-[#c2344d] dark:text-white dark:hover:bg-red-700 disabled:bg-red-400 disabled:hover:bg-red-400",
 				cancel:
@@ -76,10 +76,10 @@ const Button = ({
 				(spinnerType === "chart" ? (
 					<LottieHandler
 						type='cartSpinner'
-						className='w-0 h-0 p-0 mr-5'
+						className=' mr-5'
 					/>
 				) : (
-					<Spinner className='text-white mr-2' />
+					<Spinner className={`text-white ${children && "mr-2"}`} />
 				))}
 			{children}
 		</button>

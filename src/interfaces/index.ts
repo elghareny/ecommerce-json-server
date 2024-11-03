@@ -49,6 +49,7 @@ export interface IProduct {
 	images: string[];
 	thumbnail: string;
 	quantity?: number;
+	priceAfterDiscount?: number;
 	isLiked?: boolean;
 	isAuthenticated?: boolean;
 }

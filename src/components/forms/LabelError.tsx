@@ -9,7 +9,7 @@ interface IProps {
 
 const LabelError = ({children, className}: IProps) => {
 	return (
-		<p className={`text-red-600 text-base font-semibold ${className}`}>
+		<p className={`text-red-600 text-[14px] font-semibold ${className}`}>
 			{children}
 		</p>
 	);

@@ -10,6 +10,8 @@ import {likeToggle} from "@redux/wishlist/wishlistSlice";
 import Modal from "@components/shared/Modal";
 import Spinner from "@components/shared/Spinner";
 import Button from "@components/shared/Button";
+import {Link} from "react-router-dom";
+import {ShoppingCart} from "lucide-react";
 
 interface IProps {
 	product: IProduct;
@@ -19,6 +21,7 @@ const Product = memo(({product}: IProps) => {
 		id,
 		title,
 		price,
+		discountPercentage,
 		thumbnail,
 		stock,
 		quantity,
@@ -35,24 +38,18 @@ const Product = memo(({product}: IProps) => {
 	const currentRemainingQuantity = stock - (quantity ?? 0);
 	const quantityReachedToMax = currentRemainingQuantity > 0 ? false : true;
 
+	const priceAfterDiscount = (
+		price! -
+		(price! * discountPercentage!) / 100
+	).toFixed(2);
+
 	// HANDLER
 	const modalHandler = () => {
 		setIsShowModal(!isShowModal);
 	};
-	useEffect(() => {
-		if (!isBtnDisabled) return;
-		const debounce = setTimeout(() => {
-			setIsBtnDisabled(false);
-			setIsLoadingAddToCart(false);
-		}, 300);
-
-		return () => {
-			clearTimeout(debounce);
-		};
-	}, [isBtnDisabled]);
 
 	const addToCartHandler = () => {
-		dispatch(addToCart(id));
+		dispatch(addToCart({id, quantity: 1}));
 		setIsBtnDisabled(true);
 		setIsLoadingAddToCart(true);
 	};
@@ -70,6 +67,17 @@ const Product = memo(({product}: IProps) => {
 			setIsShowModal(true);
 		}
 	};
+	useEffect(() => {
+		if (!isBtnDisabled) return;
+		const debounce = setTimeout(() => {
+			setIsBtnDisabled(false);
+			setIsLoadingAddToCart(false);
+		}, 300);
+
+		return () => {
+			clearTimeout(debounce);
+		};
+	}, [isBtnDisabled]);
 	return (
 		<>
 			<Modal
@@ -77,14 +85,22 @@ const Product = memo(({product}: IProps) => {
 				modalHandler={modalHandler}
 				title='Login Required'>
 				<Modal.Body>
-					<p>Please login to continue</p>
+					<p className='font-semibold'>Please login to continue</p>
 				</Modal.Body>
 				<Modal.Footer>
-					<button onClick={modalHandler}>Cancel</button>
+					<Button
+						variant={"cancel"}
+						size={"sm"}
+						onClick={modalHandler}>
+						Cancel
+					</Button>
 				</Modal.Footer>
 			</Modal>
 
 			<div className='relative w-[160px] flex flex-col justify-between  shadow-[0_2px_10px_3px_rgba(78,102,137,0.2)] p-2 rounded-lg'>
+				<div className='absolute top-0 left-0 bg-red-600 rounded-lg p-1 text-sm text-white font-semibold'>
+					-{discountPercentage.toFixed(1)}%
+				</div>
 				<button
 					className='absolute -top-2 -right-2 bg-white w-fit p-2 rounded-full flex items-center justify-center duration-300 hover:drop-shadow-[0_10px_20px_rgba(255,0,0,.4)] object-cover'
 					onClick={likeToggleHandler}>
@@ -102,32 +118,46 @@ const Product = memo(({product}: IProps) => {
 						/>
 					)}
 				</button>
-				<div className='h-[150px] rounded-lg'>
+				<Link
+					to={`/productsDetails/${id}`}
+					className='h-[150px] rounded-lg'>
 					<img
 						loading='lazy'
 						className='w-full h-full bg-[#f2f2f2] block object-cover rounded-lg'
 						src={thumbnail}
 						alt={title}
 					/>
+				</Link>
+				<div className='w-full flex flex-col justify-between items-start px-1'>
+					<h2 className='text-base font-semibold   overflow-hidden text-ellipsis'>
+						{title.slice(0, 13)}...
+					</h2>
+					<div className='flex space-x-1 justify-between items-end w-full'>
+						<div className='flex flex-col'>
+							<div>
+								<h3 className='text-sm font-semibold line-through text-gray-400'>
+									{price.toFixed(2)} EGP
+								</h3>
+								<h3 className='text-sm font-semibold '>
+									{priceAfterDiscount} EGP
+								</h3>
+							</div>
+							<p className='text-sm font-semibold '>
+								stock : {currentRemainingQuantity}
+							</p>
+						</div>
+						<Button
+							variant={"custom"}
+							className='p-2 mt-2'
+							isLoading={isLoadingAddToCart}
+							spinnerType='circular'
+							size={"sm"}
+							disabled={isBtnDisabled || quantityReachedToMax}
+							onClick={addToCartHandler}>
+							{!isLoadingAddToCart && <ShoppingCart size={18} />}
+						</Button>
+					</div>
 				</div>
-				<h2 className='text-base font-semibold  w-full overflow-hidden text-ellipsis'>
-					{title.slice(0, 15)}...
-				</h2>
-				<h3 className='text-sm font-semibold text-slate-500'>
-					{price.toFixed(2)} EGP
-				</h3>
-				<p className='text-sm font-semibold text-slate-500'>
-					stock : {currentRemainingQuantity}
-				</p>
-				<Button
-					className='mt-2'
-					isLoading={isLoadingAddToCart}
-					spinnerType='circular'
-					size={"sm"}
-					disabled={isBtnDisabled || quantityReachedToMax}
-					onClick={addToCartHandler}>
-					Add to cart
-				</Button>
 			</div>
 		</>
 	);

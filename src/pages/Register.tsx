@@ -3,7 +3,6 @@
 import FormElement from "@components/forms/FormElement";
 import LabelError from "@components/forms/LabelError";
 import Button from "@components/shared/Button";
-import Heading from "@components/shared/Heading";
 import {RegisterFormData} from "@data/index";
 import useRegister from "@hooks/useRegister";
 import {CircleAlert, CircleCheckBig, Eye, EyeOffIcon} from "lucide-react";
@@ -73,31 +72,46 @@ const Register = () => {
 					invalid || isDirty ? (
 						name === "email" ? (
 							formErrors["email"]?.message ? (
-								<CircleAlert color='#f90101' />
+								<CircleAlert
+									size={20}
+									color='#f90101'
+								/>
 							) : emailAvailabilityStatus === "available" ? (
-								<CircleCheckBig color='#05f901' />
+								<CircleCheckBig
+									size={20}
+									color='#05f901'
+								/>
 							) : (
-								<CircleAlert color='#f90101' />
+								<CircleAlert
+									size={20}
+									color='#f90101'
+								/>
 							)
 						) : formErrors[name] ? (
-							<CircleAlert color='#f90101' />
+							<CircleAlert
+								size={20}
+								color='#f90101'
+							/>
 						) : (
-							<CircleCheckBig color='#05f901' />
+							<CircleCheckBig
+								size={20}
+								color='#05f901'
+							/>
 						)
 					) : null
 				}
 				icon1={
 					name === "password" ? (
-						isPasswordVisible ? (
-							<EyeOffIcon />
+						!isPasswordVisible ? (
+							<EyeOffIcon size={20} />
 						) : (
-							<Eye />
+							<Eye size={20} />
 						)
 					) : name === "confirmPassword" ? (
-						isConfirmPasswordVisible ? (
-							<EyeOffIcon />
+						!isConfirmPasswordVisible ? (
+							<EyeOffIcon size={20} />
 						) : (
-							<Eye />
+							<Eye size={20} />
 						)
 					) : null
 				}
@@ -149,25 +163,35 @@ const Register = () => {
 	}
 
 	return (
-		<div className='h-[calc(100vh-68px)] w-full flex  flex-col justify-center items-center space-y-2'>
-			<Heading title='Create an Account' />
-			<form
-				className='flex flex-col  min-w-[400px]  max-w-1/2 shadow-[0_2px_20px_3px_rgba(78,102,137,0.3)] px-5 py-2 border-slate-400 rounded-lg'
-				onSubmit={handleSubmit(submitFormHandler)}>
-				{formDataRender}
-				<Button
-					className='mt-2'
-					variant={"default"}
-					size={"sm"}
-					isLoading={loading === "pending"}
-					disabled={
-						emailAvailabilityStatus !== "available" || loading === "pending"
-					}
-					type='submit'>
-					Sign Up
-				</Button>
-				{error && <LabelError>{error}</LabelError>}
-			</form>
+		<div className={` flex justify-center items-center`}>
+			<div className='my-5 h-fit lg:w-full flex justify-center items-center shadow-[0_2px_20px_3px_rgba(78,102,137,0.3)] rounded-lg'>
+				<div className='hidden lg:block  h-[calc(100vh-90px)]  rounded-l-lg '>
+					<img
+						loading='lazy'
+						className='w-full h-full object-cover rounded-l-lg'
+						src='/src/assets/E-commerce.webp'
+						alt='register image'
+					/>
+				</div>
+				<form
+					className='flex flex-col  min-w-[300px] sm:min-w-[500px]  w-1/2 h-[calc(100vh-90px) p-4 border-slate-400 rounded-lg lg:rounded-r-lg backdrop-blur-sm'
+					onSubmit={handleSubmit(submitFormHandler)}>
+					{formDataRender}
+					<Button
+						className='mt-2'
+						variant={"custom"}
+						size={"sm"}
+						isLoading={loading === "pending"}
+						spinnerType='circular'
+						disabled={
+							emailAvailabilityStatus !== "available" || loading === "pending"
+						}
+						type='submit'>
+						Sign Up
+					</Button>
+					{error && <LabelError>{error}</LabelError>}
+				</form>
+			</div>
 		</div>
 	);
 };

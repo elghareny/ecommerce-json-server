@@ -15,7 +15,7 @@ const GridList = <T,>({records, renderItem, emptyMessage}: IProps<T>) => {
 				return renderItem(record);
 			})
 		) : (
-			<div className='fixed inset-0'>
+			<div className='-z-10 fixed inset-0'>
 				<LottieHandler
 					type='shoppingEmpty'
 					message={emptyMessage}

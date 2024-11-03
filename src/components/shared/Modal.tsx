@@ -2,6 +2,7 @@
 
 import {X} from "lucide-react";
 import {ReactNode} from "react";
+import Button from "./Button";
 
 interface IProps {
 	modalHandler: () => void;
@@ -35,24 +36,19 @@ IProps) => {
 					className='w-full h-full flex items-center justify-center bg-[#33333387] '
 					onClick={backdrop === "hidden" ? modalHandler : () => {}}>
 					<div
-						className='flex flex-col items-start space-y-3 p-4 min-w-[300px]  bg-white rounded-lg'
+						className='flex flex-col items-start space-y-5 p-4 min-w-[300px]  bg-white rounded-lg'
 						onClick={(e) => e.stopPropagation()}>
 						<div className='w-full flex justify-between items-center border-b border-gray-500 pb-2 '>
 							<h1 className='text-base font-semibold'>{title}</h1>
-							<button onClick={modalHandler}>
+							<Button
+								variant={"danger"}
+								size={"sm"}
+								className='p-1'
+								onClick={modalHandler}>
 								<X />
-							</button>
+							</Button>
 						</div>
 						{children}
-						{/* {content && <p className='text-base my-3'>{content}</p>}
-						{ModalBody}
-						<div className='flex items-center space-x-3 w-full'>
-							{ModalFooter}
-							{btnTitle && (
-								<button onClick={btnClickHandler}>{btnTitle}</button>
-							)}
-							<button onClick={modalHandler}>Cancel</button>
-						</div> */}
 					</div>
 				</div>
 			</div>
@@ -65,7 +61,7 @@ Modal.Body = ({children}) => {
 };
 Modal.Footer = ({children}) => {
 	return (
-		<div className='flex items-center justify-center space-x-2 w-full border-t border-gray-500 py-1'>
+		<div className='flex items-center justify-center space-x-2 w-full border-t border-gray-500  pt-3'>
 			{children}
 		</div>
 	);

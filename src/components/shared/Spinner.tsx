@@ -5,7 +5,7 @@ interface IProps {
 const Spinner = ({className}: IProps) => {
 	return (
 		<svg
-			className={`animate-spin  h-5 w-5 text-indigo-600 ${className}`}
+			className={`animate-spin  h-[18px] w-[18px] text-indigo-600 ${className}`}
 			xmlns='http://www.w3.org/2000/svg'
 			fill='none'
 			viewBox='0 0 24 24'>

@@ -2,11 +2,8 @@
 
 import FormElement from "@components/forms/FormElement";
 import LabelError from "@components/forms/LabelError";
-import Heading from "@components/shared/Heading";
 import {LoginFormData} from "@data/index";
-
 import {Eye, EyeOffIcon} from "lucide-react";
-import error from "@assets/lottieFiles/error.json";
 import {Navigate} from "react-router-dom";
 import useLogin from "@hooks/useLogin";
 import Button from "@components/shared/Button";
@@ -40,8 +37,9 @@ const Login = () => {
 				}
 				register={register}
 				error={formErrors[name]?.message}
-				icon={
-					name === "password" && (isPasswordVisible ? <Eye /> : <EyeOffIcon />)
+				icon1={
+					name === "password" &&
+					(isPasswordVisible ? <Eye size={20} /> : <EyeOffIcon size={20} />)
 				}
 				passwordClickHandler={passwordClickHandler}
 			/>
@@ -73,22 +71,33 @@ const Login = () => {
 		);
 	}
 	return (
-		<div className='h-[calc(100vh-68px)] w-full flex flex-col justify-center items-center space-y-2'>
-			<Heading title='Login To Your Account' />
-			<form
-				onSubmit={handleSubmit(submitFormHandler)}
-				className='flex flex-col min-w-[400px]  max-w-1/2 shadow-[0_2px_20px_3px_rgba(78,102,137,0.3)] px-5 py-2 rounded-lg'>
-				{formDataRender}
-				<Button
-					className='mt-2'
-					variant={"default"}
-					type='submit'
-					isLoading={loading === "pending"}
-					disabled={loading === "pending"}>
-					Login
-				</Button>
-				{error && <LabelError>{error}</LabelError>}
-			</form>
+		<div className='flex justify-center items-center'>
+			<div className='my-5  lg:w-full flex justify-center items-center shadow-[0_2px_20px_3px_rgba(78,102,137,0.3)] rounded-lg'>
+				<div className='hidden lg:block  rounded-l-lg '>
+					<img
+						loading='lazy'
+						className='w-full h-full object-cover rounded-l-lg'
+						src='/src/assets/E-commerce.webp'
+						alt='register image'
+					/>
+				</div>
+				<form
+					onSubmit={handleSubmit(submitFormHandler)}
+					className='flex flex-col  min-w-[300px] sm:min-w-[500px]  w-1/2  p-4 border-slate-400 rounded-lg lg:rounded-r-lg backdrop-blur-sm'>
+					{formDataRender}
+					<Button
+						className='mt-2'
+						variant={"custom"}
+						type='submit'
+						size={"sm"}
+						isLoading={loading === "pending"}
+						spinnerType='circular'
+						disabled={loading === "pending"}>
+						Login
+					</Button>
+					{error && <LabelError>{error}</LabelError>}
+				</form>
+			</div>
 		</div>
 	);
 };

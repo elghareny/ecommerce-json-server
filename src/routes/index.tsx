@@ -18,6 +18,8 @@ const Register = lazy(() => import("@pages/Register"));
 const Wishlist = lazy(() => import("@pages/Wishlist"));
 const Account = lazy(() => import("@pages/Account"));
 const Orders = lazy(() => import("@pages/Orders"));
+const ProductDetails = lazy(() => import("@pages/ProductDetails"));
+
 import {
 	createBrowserRouter,
 	createRoutesFromElements,
@@ -72,6 +74,14 @@ export const router = createBrowserRouter(
 						}
 						return true;
 					}}
+				/>
+				<Route
+					path='/productsDetails/:id'
+					element={
+						<PageSuspense>
+							<ProductDetails />
+						</PageSuspense>
+					}
 				/>
 				<Route
 					path='/about'

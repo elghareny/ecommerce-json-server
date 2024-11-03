@@ -14,7 +14,7 @@ const CartItemsList = ({
 	changeQuantityHandler,
 	removeCartItemHandler,
 }: IProps) => {
-	const caerProductsRender = items.map((product) => {
+	const cartProductsRender = items.map((product) => {
 		return (
 			<div
 				key={product.id}
@@ -28,7 +28,7 @@ const CartItemsList = ({
 			</div>
 		);
 	});
-	return <div>{caerProductsRender}</div>;
+	return <div>{cartProductsRender}</div>;
 };
 
 export default CartItemsList;

@@ -16,7 +16,7 @@ const Input = forwardRef<HTMLInputElement, IProps>(
 			<div className='relative'>
 				<input
 					ref={ref}
-					className={`relative w-full p-2 border-2  rounded-lg text-[16px] focus:outline-none focus:border-2  ${className}`}
+					className={`relative w-full p-1 border-2  rounded-lg text-[16px] focus:outline-none focus:border-2  ${className}`}
 					{...props}
 					onBlur={onBlur}
 				/>
