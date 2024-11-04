@@ -82,6 +82,7 @@ const CartSubtotalPrice = ({cartProducts, userAccessToken}: IProps) => {
 						</Button>
 					)}
 				</div>
+				{error && <p className='text-red-500'>{error}</p>}
 			</div>
 		</>
 	);

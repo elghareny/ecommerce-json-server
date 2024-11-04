@@ -1,7 +1,7 @@
 /** @format */
 
 import {X} from "lucide-react";
-import {ReactNode} from "react";
+import React, {ReactNode} from "react";
 import Button from "./Button";
 
 interface IProps {
@@ -56,10 +56,14 @@ IProps) => {
 	);
 };
 
-Modal.Body = ({children}) => {
+interface IChildProps {
+	children?: React.ReactNode;
+}
+
+Modal.Body = ({children}: IChildProps) => {
 	return <div>{children}</div>;
 };
-Modal.Footer = ({children}) => {
+Modal.Footer = ({children}: IChildProps) => {
 	return (
 		<div className='flex items-center justify-center space-x-2 w-full border-t border-gray-500  pt-3'>
 			{children}

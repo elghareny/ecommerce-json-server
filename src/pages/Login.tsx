@@ -1,12 +1,12 @@
 /** @format */
 
-import FormElement from "@components/forms/FormElement";
 import LabelError from "@components/forms/LabelError";
 import {LoginFormData} from "@data/index";
 import {Eye, EyeOffIcon} from "lucide-react";
 import {Navigate} from "react-router-dom";
 import useLogin from "@hooks/useLogin";
 import Button from "@components/shared/Button";
+import Input from "@components/forms/Input";
 
 const Login = () => {
 	// HOOK
@@ -22,27 +22,63 @@ const Login = () => {
 		submitFormHandler,
 		isPasswordVisible,
 	} = useLogin();
+
 	// RENDER
 
 	const formDataRender = LoginFormData.map((data, idx) => {
 		const {id, name, placeholder, type} = data;
 		return (
-			<FormElement
+			<div
 				key={idx}
-				id={id}
-				name={name}
-				placeholder={placeholder}
-				type={
-					name === "password" ? (isPasswordVisible ? "text" : "password") : type
-				}
-				register={register}
-				error={formErrors[name]?.message}
-				icon1={
-					name === "password" &&
-					(isPasswordVisible ? <Eye size={20} /> : <EyeOffIcon size={20} />)
-				}
-				passwordClickHandler={passwordClickHandler}
-			/>
+				className='flex flex-col space-y-1 w-full'>
+				<label
+					className='text-base font-semibold my-1'
+					htmlFor={name}>
+					{placeholder}
+				</label>
+				<Input
+					className={`${
+						error
+							? "border-red-400 focus:border-red-600"
+							: " border-slate-300 focus:border-slate-400"
+					} `}
+					placeholder={placeholder}
+					type={
+						name === "password"
+							? isPasswordVisible
+								? "text"
+								: "password"
+							: type
+					}
+					id={id}
+					{...register(name)}
+					icon1={
+						name === "password" &&
+						(isPasswordVisible ? <Eye size={20} /> : <EyeOffIcon size={20} />)
+					}
+					iconClick={passwordClickHandler}
+				/>
+				{formErrors[name]?.message && (
+					<LabelError>{formErrors[name]?.message}</LabelError>
+				)}
+			</div>
+			// <FormElement
+			// 	key={idx}
+			// 	id={id}
+			// 	name={name}
+			// 	placeholder={placeholder}
+			// 	type={
+			// 		name === "password" ? (isPasswordVisible ? "text" : "password") : type
+			// 	}
+			// 	register={register}
+			// 	error={formErrors[name]?.message}
+			// 	icon1={
+			// 		name === "password" &&
+			// 		(isPasswordVisible ? <Eye size={20} /> : <EyeOffIcon size={20} />)
+			// 	}
+			// 	passwordClickHandler={passwordClickHandler}
+			// />
+
 			// <div
 			// 	key={idx}
 			// 	className='flex flex-col'>
