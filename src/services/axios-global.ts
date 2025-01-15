@@ -2,4 +2,4 @@
 
 import axios from "axios";
 
-axios.defaults.baseURL = "https://stripe-atom-redcurrant.glitch.me";
+axios.defaults.baseURL = "https://cookie-glorious-caravan.glitch.me/";
